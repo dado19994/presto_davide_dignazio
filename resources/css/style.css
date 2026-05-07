@@ -1,0 +1,173 @@
+
+body{
+    background: linear-gradient(135deg, #fbbf24, #f59e0b);
+}
+
+/* FOOTER */
+.footer {
+  background-color: #2d3748;
+  text-align: center;
+  font-family: Arial, sans-serif;
+}
+
+/* CONTENITORE */
+.footer-container {
+  padding: 40px 20px 20px;
+}
+
+/* SEZIONE SOCIAL */
+.social-section {
+  margin-bottom: 20px;
+}
+
+/* BOTTONI SOCIAL */
+.social-btn {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 45px;
+  height: 45px;
+
+  margin: 5px;
+
+  border-radius: 50%;
+  text-decoration: none;
+  color: white;
+
+  transition: 0.3s ease;
+  font-size: 18px;
+}
+
+/* Hover */
+.social-btn:hover {
+  transform: scale(1.1);
+  opacity: 0.9;
+}
+
+/* COLORI */
+.facebook {
+  background-color: #3b5998;
+}
+
+.twitter {
+  background-color: #55acee;
+}
+
+.google {
+  background-color: #dd4b39;
+}
+
+.instagram {
+  background-color: #ac2bac;
+}
+
+.linkedin {
+  background-color: #0082ca;
+}
+
+.github {
+  background-color: #333333;
+}
+
+/* COPYRIGHT */
+.copyright {
+  background-color: rgba(0, 0, 0, 0.05);
+  padding: 15px;
+  font-size: 14px;
+}
+
+/* LINK */
+.copyright a {
+  color: #333;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.copyright a:hover {
+  text-decoration: underline;
+}
+
+
+/* NAVBAR */
+
+.custom-navbar{
+    background-color: #1f1f1f;
+}
+
+.custom-navbar .nav-link{
+  color: white;
+}
+
+.custom-navbar .nav-link:hover{
+  color: #4da3ff;
+}
+
+.navbar-toggler{
+  border-color: white;
+}
+
+.height-custom{
+    min-height: 60vh;
+}
+
+
+/* INPUT CUSTOM */
+.custom-input{
+    background-color: white;
+
+    border: 2px solid #d1d5db;
+
+    border-radius: 14px;
+
+    padding: 14px 16px;
+
+    font-size: 16px;
+
+    transition: all 0.3s ease;
+
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+}
+
+/* HOVER */
+.custom-input:hover{
+    border-color: #9ca3af;
+}
+
+/* FOCUS */
+.custom-input:focus{
+    border-color: #111827;
+
+    box-shadow: 0 0 0 4px rgba(17, 24, 39, 0.15);
+
+    outline: none;
+}
+/* TEXTAREA */
+textarea.custom-input{
+    resize: none;
+}
+
+/* CARD */
+.card{
+    background-color: #ffffff;
+}
+
+/* EURO */
+.input-group-text{
+    border-radius: 0 12px 12px 0;
+
+    background-color: #111827;
+    color: white;
+
+    font-weight: bold;
+}
+
+/* Placeholder */
+
+.custom-input::placeholder{
+    color: #9ca3af;
+
+    font-size: 14px;
+
+    opacity: 1;
+}
