@@ -1,4 +1,3 @@
-
 <x-layout>
 
     <div class="container py-5">
@@ -15,17 +14,24 @@
             </div>
 
         </div>
+        @if ($errors->any())
+
+            <div class="alert alert-danger">
+
+                @foreach ($errors->all() as $error)
+                    <div>{{ $error }}</div>
+                @endforeach
+
+            </div>
+
+        @endif
 
         <!-- Form -->
         <div class="row justify-content-center align-items-center">
 
             <div class="col-12 col-md-8 col-lg-5">
 
-                <form
-                    action="{{ route('register') }}"
-                    method="POST"
-                    class="card-custom p-5"
-                >
+                <form action="{{ route('register') }}" method="POST" class="card-custom p-5">
 
                     @csrf
 
@@ -36,13 +42,8 @@
                             Nome
                         </label>
 
-                        <input
-                            type="text"
-                            class="form-control custom-input"
-                            id="name"
-                            name="name"
-                            placeholder="Inserisci il tuo nome"
-                        >
+                        <input type="text" class="form-control custom-input" id="name" name="name"
+                            placeholder="Inserisci il tuo nome">
 
                     </div>
 
@@ -53,13 +54,8 @@
                             Email
                         </label>
 
-                        <input
-                            type="email"
-                            class="form-control custom-input"
-                            id="loginEmail"
-                            name="email"
-                            placeholder="esempio@email.com"
-                        >
+                        <input type="email" class="form-control custom-input @error('email') is-invalid @enderror" id="loginEmail" name="email"
+                            placeholder="esempio@email.com">
 
                     </div>
 
@@ -70,13 +66,8 @@
                             Password
                         </label>
 
-                        <input
-                            type="password"
-                            class="form-control custom-input"
-                            id="password"
-                            name="password"
-                            placeholder="Inserisci la password"
-                        >
+                        <input type="password" class="form-control custom-input" id="password" name="password"
+                            placeholder="Inserisci la password">
 
                     </div>
 
@@ -87,23 +78,15 @@
                             Conferma password
                         </label>
 
-                        <input
-                            type="password"
-                            class="form-control custom-input"
-                            id="password_confirmation"
-                            name="password_confirmation"
-                            placeholder="Ripeti la password"
-                        >
+                        <input type="password" class="form-control custom-input" id="password_confirmation"
+                            name="password_confirmation" placeholder="Ripeti la password">
 
                     </div>
 
                     <!-- Bottone -->
                     <div class="text-center">
 
-                        <button
-                            type="submit"
-                            class="btn btn-dark custom-btn"
-                        >
+                        <button type="submit" class="btn btn-dark custom-btn">
                             Registrati
                         </button>
 

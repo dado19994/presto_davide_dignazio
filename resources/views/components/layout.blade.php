@@ -14,12 +14,14 @@
 <body>
 
     <x-navbar />
-    <div class="min-vh-100 bg-warning d-flex justify-content-center align-items-center">
+
+    <main class="min-vh-100 bg-warning">
 
         {{ $slot }}
-    </div>
-    <x-footer />
 
+    </main>
+
+    <x-footer />
 
 </body>
 
