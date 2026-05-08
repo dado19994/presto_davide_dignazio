@@ -10,6 +10,7 @@
     <title>Story1</title>
 </head>
 
+
 <body>
 
     <x-navbar />
@@ -18,6 +19,8 @@
         {{ $slot }}
     </div>
     <x-footer />
+
+
 </body>
 
 </html>

@@ -10,7 +10,7 @@
                     Pubblica un articolo
                 </h1>
 
-                <form wire:submit="store">
+                <form wire:submit.prevent="save">
 
                     <!-- Titolo -->
                     <div class="mb-4">
@@ -96,8 +96,8 @@
 
                         </select>
                         @error('category')
-                                <p class="fst-italic text-danger">{{ $message }}</p>
-                            @enderror
+                            <p class="fst-italic text-danger">{{ $message }}</p>
+                        @enderror
 
                     </div>
 
