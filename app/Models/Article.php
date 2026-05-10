@@ -6,28 +6,50 @@ use App\Models\Category;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Laravel\Scout\Searchable;
 
 class Article extends Model
 {
-    protected $fillable=[
-        'title', 'description', 'price', 'category_id', 'user_id'
+    use Searchable;
+
+    protected $fillable = [
+        'title',
+        'description',
+        'price',
+        'category_id',
+        'user_id'
     ];
 
-    public function user(): BelongsTo{
+    public function user(): BelongsTo
+    {
         return $this->belongsTo(User::class);
     }
-     public function category(): BelongsTo{
+
+    public function category(): BelongsTo
+    {
         return $this->belongsTo(Category::class);
     }
 
-    public function setAccepted($value){
+    public function setAccepted($value)
+    {
         $this->is_accepted = $value;
         $this->save();
+
         return true;
     }
 
-    public static function toBeRevisionedCount(){
+    public static function toBeRevisionedCount()
+    {
         return Article::whereNull('is_accepted')->count();
     }
 
+    public function toSearchableArray(): array
+    {
+        return [
+            'id' => $this->id,
+            'title' => $this->title,
+            'description' => $this->description,
+            'category' => $this->category->name,
+        ];
+    }
 }
