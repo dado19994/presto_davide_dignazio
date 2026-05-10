@@ -4,7 +4,7 @@
     <!-- Immagine -->
     <div class="text-center mb-4">
         <img
-            src="https://picsum.photos/500"
+            src="{{ $article->images->isNotEmpty() ? Storage::url($article->images->first()->path) : 'https://picsum.photos/220' }}"
             class="img-fluid article-image"
             alt="Immagine dell'articolo {{ $article->title }}"
         >

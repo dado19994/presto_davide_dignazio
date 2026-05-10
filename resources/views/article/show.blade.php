@@ -9,18 +9,17 @@
         <div class="article-detail-card shadow">
             <div class="row g-4 align-items-center">
                 <div class="col-12 col-lg-6">
+                    @if ($article->images->count() > 0)
                     <div id="carouselExample" class="carousel slide article-detail-carousel">
                         <div class="carousel-inner">
-                            <div class="carousel-item active">
-                                <img src="https://picsum.photos/700/520" class="d-block w-100 article-detail-image" alt="Immagine articolo">
+                            @foreach ($article->images as $key => $images )
+                            <div class="carousel-item" @if ($loop->first) active @endif>
+                                <img src="{{ Storage::url($images->path) }}" class="d-block w-100 article-detail-imag shadow"
+                                    alt="Immagine {{ $key +1 }} dell'articolo {{ $article->title }}">
+
                             </div>
-                            <div class="carousel-item">
-                                <img src="https://picsum.photos/701/520" class="d-block w-100 article-detail-image" alt="Immagine articolo">
-                            </div>
-                            <div class="carousel-item">
-                                <img src="https://picsum.photos/702/520" class="d-block w-100 article-detail-image" alt="Immagine articolo">
-                            </div>
-                        </div>
+
+                            @endforeach
 
                         <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample"
                             data-bs-slide="prev">
@@ -66,6 +65,9 @@
                                 </a>
                             @endif
                         </div>
+                        @else
+                        <img src="https://picsum.photos/300" alt="Nessuna foto inserita dall'utente" class="img-fluid article-detail-imag shadow">
+                        @endif
                     </div>
                 </div>
             </div>

@@ -676,6 +676,16 @@ textarea.custom-input{
     justify-content: center;
 }
 
+/* // preview immagini */
+
+.img-preview{
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 120px;
+    width: 120px;
+}
+
 @media screen and (min-width: 992px){
     .revisor-actions{
         justify-content: flex-start;
@@ -695,3 +705,4 @@ textarea.custom-input{
         grid-template-columns: 1fr;
     }
 }
+

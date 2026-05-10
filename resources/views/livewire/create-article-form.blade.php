@@ -25,7 +25,8 @@
                                     Titolo
                                 </label>
 
-                                <input type="text" class="form-control custom-input @error('title') is-invalid @enderror"
+                                <input type="text"
+                                    class="form-control custom-input @error('title') is-invalid @enderror"
                                     placeholder="Es: MacBook Air M3" id="title" wire:model.live="title">
 
                                 @error('title')
@@ -39,7 +40,8 @@
                                 </label>
 
                                 <div class="input-group">
-                                    <input type="text" class="form-control custom-input @error('price') is-invalid @enderror"
+                                    <input type="text"
+                                        class="form-control custom-input @error('price') is-invalid @enderror"
                                         id="price" wire:model.live="price" placeholder="0.00">
 
                                     <span class="input-group-text">
@@ -57,7 +59,8 @@
                                     Categoria
                                 </label>
 
-                                <select id="category" wire:model.live="category" class="form-select custom-input @error('category') is-invalid @enderror">
+                                <select id="category" wire:model.live="category"
+                                    class="form-select custom-input @error('category') is-invalid @enderror">
                                     <option value="">
                                         Seleziona una categoria
                                     </option>
@@ -73,6 +76,42 @@
                                     <p class="fst-italic text-danger mt-2 mb-0">{{ $message }}</p>
                                 @enderror
                             </div>
+                            {{-- // Sezione immagini --}}
+                             <div class="mb-3 mt-4">
+                                <label for="" class="form-label fw-bold">Inserisci immagine:</label>
+                            <input type="file"
+                                class="form-control custom-input @error('images') is-invalid @enderror"
+                                wire:model.live="temporary_images" multiple placeholder="Img/">
+                            @error('temporary_images.*')
+                                <p class="fst-italic text-danger">{{ $message }}</p>
+                            @enderror
+                            @error('temporary_images')
+                                <p class="fst-italic text-danger">{{ $message }}</p>
+                            @enderror
+                            <div>
+                                @if (!empty($images))
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <p class="fw-bold mb-2">Immagini caricate:</p>
+                                            <div class="row border border-4 border-success rounded shadow py-4">
+                                                @foreach ($images as $key => $image)
+                                                    <div class="col d-flex flex-column aligns-items-center my-3">
+                                                        <div class="img-preview mx-auto shadow rounded"
+                                                            style="background-image: url({{ $image->temporaryUrl() }})">
+                                                        </div>
+                                                        <button type="button" class="btn btn-danger mt-2"
+                                                            wire:click="removeImage({{ $key }})">
+                                                            X
+                                                        </button>
+                                                    </div>
+                                                @endforeach
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                @endif
+                            </div>
+                        </div>
                         </div>
                     </div>
 
@@ -93,6 +132,7 @@
                                 <p class="fst-italic text-danger mt-2 mb-0">{{ $message }}</p>
                             @enderror
                         </div>
+
                     </div>
                 </div>
             </div>
@@ -100,11 +140,8 @@
             <div class="col-12 col-xl-4">
                 <div class="card-custom article-card create-preview-card mx-auto shadow p-4">
                     <div class="text-center mb-4">
-                        <img
-                            src="https://picsum.photos/600"
-                            class="img-fluid preview-image w-100"
-                            alt="Anteprima articolo"
-                        >
+                        <img src="https://picsum.photos/600" class="img-fluid preview-image w-100"
+                            alt="Anteprima articolo">
                     </div>
 
                     <div class="text-center">
