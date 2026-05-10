@@ -1,18 +1,11 @@
 <x-layout>
-    <section class="container py-5">
-        <div class="row justify-content-center text-center">
-            <div class="col-12 col-lg-10">
-                <p class="text-white fs-5 opacity-75 mb-2">
-                    Dettaglio articolo
-                </p>
-                <h1 class="display-4 fw-bold text-white mb-0">
-                    {{ $article->title }}
-                </h1>
-            </div>
-        </div>
-    </section>
+    <x-page-header
+        eyebrow="Dettaglio articolo"
+        title="{{ $article->title }}"
+        subtitle="Tutte le informazioni dell'articolo selezionato"
+    />
 
-    <section class="container pb-5 article-detail-section">
+    <section class="container section-shell article-detail-section">
         <div class="article-detail-card shadow">
             <div class="row g-4 align-items-center">
                 <div class="col-12 col-lg-6">
@@ -44,9 +37,11 @@
 
                 <div class="col-12 col-lg-6">
                     <div class="article-detail-content">
-                        <span class="article-detail-badge text-capitalize">
-                            {{ $article->category->name }}
-                        </span>
+                        @if ($article->category)
+                            <a href="{{ route('byCategory', ['category' => $article->category]) }}" class="article-detail-badge text-capitalize text-decoration-none">
+                                {{ $article->category->name }}
+                            </a>
+                        @endif
 
                         <h2 class="fw-bold mt-3 mb-4">
                             {{ $article->title }}
@@ -65,9 +60,11 @@
                             <a href="{{ route('article.index') }}" class="btn btn-dark custom-btn-card px-4">
                                 Torna agli articoli
                             </a>
-                            <a href="{{ route('byCategory', ['category' => $article->category]) }}" class="btn btn-outline-dark custom-btn-outline px-4">
-                                Altri in {{ $article->category->name }}
-                            </a>
+                            @if ($article->category)
+                                <a href="{{ route('byCategory', ['category' => $article->category]) }}" class="btn btn-outline-dark custom-btn-outline px-4">
+                                    Altri in {{ $article->category->name }}
+                                </a>
+                            @endif
                         </div>
                     </div>
                 </div>

@@ -1,29 +1,23 @@
 
 <x-layout>
 
-    <!-- HERO SECTION -->
-    <section class="container py-5">
-
-        <div class="row justify-content-center text-center">
-
-            <div class="col-12">
-
-                <h1 class="display-3 fw-bold text-white mb-3">
-                    Tutti gli articoli
-                </h1>
-
-                <p class="text-white fs-5 opacity-75">
-                    Esplora tutti gli articoli pubblicati dalla community
-                </p>
-
-            </div>
-
-        </div>
-
-    </section>
+    <x-page-header
+        eyebrow="Catalogo"
+        title="Tutti gli articoli"
+        subtitle="Esplora tutti gli articoli pubblicati dalla community"
+    />
 
     <!-- SEZIONE ARTICOLI -->
-    <section class="container pb-5 article-section">
+    <section class="container section-shell article-section">
+        @if (($categories ?? collect())->count())
+            <div class="glass-panel category-filter d-flex justify-content-center gap-2 flex-wrap mb-5 p-3">
+                @foreach ($categories as $category)
+                    <a href="{{ route('byCategory', ['category' => $category]) }}" class="btn btn-outline-dark custom-btn-outline text-capitalize">
+                        {{ $category->name }}
+                    </a>
+                @endforeach
+            </div>
+        @endif
 
         <div class="row g-4 justify-content-center">
 
@@ -38,18 +32,10 @@
             @empty
 
                 <div class="col-12">
-
-                    <div class="card-custom empty-card text-center p-5">
-
-                        <h3 class="fw-bold mb-3">
-                            Nessun articolo disponibile
-                        </h3>
-
-                        <p class="text-secondary mb-0">
-                            Non sono ancora stati creati articoli.
-                        </p>
-
-                    </div>
+                    <x-empty-state
+                        title="Nessun articolo disponibile"
+                        message="Non sono ancora stati creati articoli."
+                    />
 
                 </div>
 
@@ -67,5 +53,3 @@
     </section>
 
 </x-layout>
-
-

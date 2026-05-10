@@ -17,11 +17,9 @@ return new class extends Migration
             $table->text('description');
             $table->float('price');
             //Category
-            $table->unsignedBigInteger('category_id')->nullable();
-            $table->foreign('category_id')->references('id')->on('categories');
+            $table->foreignId('category_id')->nullable()->constrained()->nullOnDelete();
             //User
-            $table->unsignedBigInteger('user_id')->nullable();
-            $table->foreign('user_id')->references('id')->on('user');
+            $table->foreignId('user_id')->nullable()->constrained()->nullOnDelete();
             $table->timestamps();
         });
     }

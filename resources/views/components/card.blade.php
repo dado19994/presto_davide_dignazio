@@ -1,5 +1,5 @@
 
-<div class="card-custom article-card mx-auto shadow p-4 mb-4">
+<div class="card-custom article-card mx-auto shadow p-4 h-100">
 
     <!-- Immagine -->
     <div class="text-center mb-4">
@@ -27,13 +27,14 @@
                 Dettaglio
             </a>
 
-            <a href="{{ route('byCategory', ['category' => $article->category]) }}" class="btn btn-outline-dark custom-btn-outline px-4">
-                {{ $article->category->name }}
-            </a>
+            @if ($article->category)
+                <a href="{{ route('byCategory', ['category' => $article->category]) }}" class="btn btn-outline-dark custom-btn-outline px-4">
+                    {{ $article->category->name }}
+                </a>
+            @endif
 
         </div>
 
     </div>
 
 </div>
-

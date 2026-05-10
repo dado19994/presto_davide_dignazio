@@ -1,17 +1,15 @@
 <x-layout>
-    <div class="container py-5">
-        <div class="row justify-content-center">
-            <div class="col-12 text-center">
-                <h1 class="display-3 fw-bold text-white mb-3">
-                    Pubblica un articolo
-                </h1>
-            </div>
-        </div>
+    <x-page-header
+        eyebrow="Nuova pubblicazione"
+        title="Pubblica un articolo"
+        subtitle="Compila i dettagli e guarda l'anteprima aggiornarsi mentre scrivi"
+    />
 
+    <section class="container section-shell">
         <div class="row justify-content-center align-items-center">
-            <div class="col-12 col-lg-10 col-xl-8">
+            <div class="col-12 col-xl-11">
                 <livewire:create-article-form />
             </div>
         </div>
-    </div>
+    </section>
 </x-layout>

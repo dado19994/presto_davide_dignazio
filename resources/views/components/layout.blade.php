@@ -15,7 +15,7 @@
 
     <x-navbar />
 
-    <main class="min-vh-100 bg-warning">
+    <main class="app-main">
 
         {{ $slot }}
 

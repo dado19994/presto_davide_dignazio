@@ -1,28 +1,27 @@
 <x-layout>
 
-    <!-- HERO SECTION -->
-    <section class="container py-5">
+    <x-page-header
+        eyebrow="Marketplace community"
+        title="Story1"
+        subtitle="Scopri gli ultimi articoli pubblicati dalla community"
+    />
 
-        <div class="row justify-content-center">
-
-            <div class="col-12 text-center">
-
-                <h1 class="display-3 fw-bold text-white mb-3">
-                    Homepage
-                </h1>
-
-                <p class="text-white fs-5">
-                    Scopri gli ultimi articoli pubblicati
-                </p>
-
-            </div>
-
+    @if (session()->has('errorMessage'))
+        <div class="alert alert-danger" role="alert">
+            {{ session('errorMessage') }}
         </div>
 
-    </section>
+    @endif
+
+    @if (session()->has('message'))
+        <div class="alert alert-success" role="alert">
+            {{ session('message') }}
+        </div>
+
+    @endif
 
     <!-- SEZIONE ARTICOLI -->
-    <section class="container pb-5">
+    <section class="container section-shell">
 
         <div class="row g-4 justify-content-center">
 
@@ -37,14 +36,10 @@
             @empty
 
                 <div class="col-12">
-
-                    <div class="card-custom p-5 text-center">
-
-                        <h3>
-                            Non ci sono articoli creati
-                        </h3>
-
-                    </div>
+                    <x-empty-state
+                        title="Non ci sono articoli creati"
+                        message="Appena qualcuno pubblica qualcosa, lo vedrai qui."
+                    />
 
                 </div>
 

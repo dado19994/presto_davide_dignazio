@@ -1,19 +1,11 @@
 <x-layout>
-    <section class="container py-5">
-        <div class="row justify-content-center text-center">
-            <div class="col-12">
-                <h1 class="display-3 fw-bold text-white mb-3">
-                    Articoli della categoria
-                </h1>
+    <x-page-header
+        eyebrow="Categoria"
+        title="{{ $category->name }}"
+        subtitle="Articoli pubblicati in questa categoria"
+    />
 
-                <p class="text-white fs-5 opacity-75 text-capitalize mb-0">
-                    {{ $category->name }}
-                </p>
-            </div>
-        </div>
-    </section>
-
-    <section class="container pb-5 article-section">
+    <section class="container section-shell article-section">
         <div class="row g-4 justify-content-center">
             @forelse ($articles as $article )
                 <div class="col-12 col-md-6 col-lg-4 col-xl-3 d-flex justify-content-center">
@@ -21,20 +13,18 @@
                 </div>
             @empty
                 <div class="col-12">
-                    <div class="card-custom empty-card text-center p-5">
-                        <h3 class="fw-bold mb-3">
-                            Non sono ancora stati creati articoli per questa categoria!
-                        </h3>
-
-                        @auth
-                            <a href="{{ route('create.article') }}" class="btn btn-dark custom-btn-card mt-3">
-                                Pubblica un articolo
-                            </a>
-                        @endauth
-                    </div>
+                    <x-empty-state
+                        title="Non sono ancora stati creati articoli per questa categoria!"
+                        :action-route="auth()->check() ? route('create.article') : null"
+                        action-label="Pubblica un articolo"
+                    />
                 </div>
 
             @endforelse
+        </div>
+
+        <div class="d-flex justify-content-center mt-5 pagination-custom">
+            {{ $articles->links() }}
         </div>
     </section>
 </x-layout>

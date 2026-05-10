@@ -20,4 +20,14 @@ class Article extends Model
         return $this->belongsTo(Category::class);
     }
 
+    public function setAccepted($value){
+        $this->is_accepted = $value;
+        $this->save();
+        return true;
+    }
+
+    public static function toBeRevisionedCount(){
+        return Article::whereNull('is_accepted')->count();
+    }
+
 }
