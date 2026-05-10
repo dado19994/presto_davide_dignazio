@@ -12,9 +12,9 @@
                     @if ($article->images->count() > 0)
                     <div id="carouselExample" class="carousel slide article-detail-carousel">
                         <div class="carousel-inner">
-                            @foreach ($article->images as $key => $images )
+                            @foreach ($article->images as $key => $image )
                             <div class="carousel-item" @if ($loop->first) active @endif>
-                                <img src="{{ Storage::url($images->path) }}" class="d-block w-100 article-detail-imag shadow"
+                                <img src="{{ $image->getUrl(300, 300) }}" class="d-block w-100 article-detail-imag shadow"
                                     alt="Immagine {{ $key +1 }} dell'articolo {{ $article->title }}">
 
                             </div>
