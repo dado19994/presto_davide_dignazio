@@ -8,20 +8,23 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link {{ request()->routeIs('homepage') ? 'active' : '' }}" href="{{ route('homepage') }}">Home</a>
+                    <a class="nav-link {{ request()->routeIs('homepage') ? 'active' : '' }}"
+                        href="{{ route('homepage') }}">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link {{ request()->routeIs('article.index') ? 'active' : '' }}" href="{{ route('article.index') }}">Tutti gli
+                    <a class="nav-link {{ request()->routeIs('article.index') ? 'active' : '' }}"
+                        href="{{ route('article.index') }}">Tutti gli
                         articoli</a>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle {{ request()->routeIs('byCategory') ? 'active' : '' }}" href="#" role="button" data-bs-toggle="dropdown"
-                        aria-expanded="false">
+                    <a class="nav-link dropdown-toggle {{ request()->routeIs('byCategory') ? 'active' : '' }}"
+                        href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Categorie
                     </a>
                     <ul class="dropdown-menu">
                         @foreach ($categories ?? [] as $category)
-                            <li><a href="{{ route('byCategory', ['category' => $category]) }}" class="dropdown-item text-capitalize">{{ $category->name }}</a>
+                            <li><a href="{{ route('byCategory', ['category' => $category]) }}"
+                                    class="dropdown-item text-capitalize">{{ $category->name }}</a>
                             </li>
                             @if (!$loop->last)
                                 <hr class="dropdown-divider">
@@ -32,11 +35,13 @@
 
                 @auth
                     <li class="nav-item">
-                        <a class="nav-link {{ request()->routeIs('create.article') ? 'active' : '' }}" href="{{ route('create.article') }}">Crea articolo</a>
+                        <a class="nav-link {{ request()->routeIs('create.article') ? 'active' : '' }}"
+                            href="{{ route('create.article') }}">Crea articolo</a>
                     </li>
                     @if (Auth::user()->is_revisor)
                         <li class="nav-item">
-                            <a class="nav-link navbar-revisor-link {{ request()->routeIs('revisor.*') ? 'active' : '' }}" href="{{ route('revisor.index') }}">Area revisore
+                            <a class="nav-link navbar-revisor-link {{ request()->routeIs('revisor.*') ? 'active' : '' }}"
+                                href="{{ route('revisor.index') }}">Area revisore
                                 <span class="navbar-revisor-badge">{{ App\Models\Article::toBeRevisionedCount() }}</span>
                             </a>
                         </li>
@@ -70,6 +75,16 @@
                     </li>
                 @endauth
             </ul>
+            <form class="d-flex ms-lg-3 col-12 col-lg-3" method="GET" action="{{ route('article.searched') }}">
+                <div class="input-group bg-white rounded overflow-hidden border">
+                    <input type="search" name="query" class="form-control border-0" placeholder="Cerca..."
+                        value="{{ request('query') }}">
+
+                    <button class="btn border-0 bg-white px-3" type="submit">
+                        🔍
+                    </button>
+                </div>
+            </form>
         </div>
     </div>
 </nav>
