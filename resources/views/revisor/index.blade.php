@@ -34,7 +34,6 @@
                                 <div class="row g-3 mt-1">
 
                                     @foreach ($article_to_check->images as $key => $image)
-
                                         <div class="col-6 col-md-3">
 
                                             <img src="{{ $image->getUrl(300, 300) }}"
@@ -42,17 +41,65 @@
                                                 alt="Immagine {{ $key + 1 }} dell'articolo {{ $article_to_check->title }}">
 
                                         </div>
+                                        <div class="col-md-5 ps-3">
+                                            <div class="card-body">
+                                                <h5>Labels</h5>
+                                                @if ($image->labels)
+                                                @foreach ($image->labels as $label)
+                                                        #{{ $label }},
 
+                                                @endforeach
+                                                @else
+                                                <p class="fst-italic">Nessuna label trovata</p>
+
+                                                @endif
+                                            </div>
+                                        </div>
+                                        <div class="col-md-8 ps-3">
+                                            <div class="card-body">
+                                                <h5>Ratings</h5>
+                                                <div class="row justify-content-center">
+                                                    <div class="col-2">
+                                                        <div class="text-center mx-auto {{ $image->adult }}">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-10">adult</div>
+                                                </div>
+                                                <div class="row justify-content-center">
+                                                    <div class="col-2">
+                                                        <div class="text-center mx-auto {{ $image->violence }}">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-10">violence</div>
+                                                </div>
+                                                <div class="row justify-content-center">
+                                                    <div class="col-2">
+                                                        <div class="text-center mx-auto {{ $image->spoof }}">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-10">spoof</div>
+                                            </div>
+                                            <div class="row justify-content-center">
+                                                <div class="col-2">
+                                                    <div class="text-cennter mx-auto {{ $image->racy }}">
+                                                    </div>
+                                                </div>
+                                                <div class="col-10">racy</div>
+                                            </div>
+                                            <div class="row justify-content-center">
+                                                <div class="col-2">
+                                                    <div class="text-center mx-auto {{ $image->medical }}"></div>
+                                                </div>
+                                                <div class="col-10">medical</div>
+                                            </div>
+                                        </div>
                                     @endforeach
 
                                 </div>
-
                             @else
-
                                 <div class="row g-3 mt-1">
 
                                     @for ($i = 0; $i < 4; $i++)
-
                                         <div class="col-6 col-md-3">
 
                                             <img src="https://picsum.photos/30{{ $i }}/220"
@@ -60,7 +107,6 @@
                                                 alt="Anteprima articolo {{ $article_to_check->title }}">
 
                                         </div>
-
                                     @endfor
 
                                 </div>
@@ -79,20 +125,16 @@
                             <div>
 
                                 @if ($article_to_check->category)
-
                                     <a href="{{ route('byCategory', ['category' => $article_to_check->category]) }}"
                                         class="article-detail-badge text-capitalize text-decoration-none">
 
                                         {{ $article_to_check->category->name }}
 
                                     </a>
-
                                 @else
-
                                     <span class="article-detail-badge">
                                         Senza categoria
                                     </span>
-
                                 @endif
 
                                 <h2 class="fw-bold mt-3 mb-3">
@@ -143,8 +185,7 @@
                                     @csrf
                                     @method('PATCH')
 
-                                    <button type="submit"
-                                        class="btn btn-outline-danger custom-btn-outline px-4">
+                                    <button type="submit" class="btn btn-outline-danger custom-btn-outline px-4">
 
                                         Rifiuta
 
@@ -158,8 +199,7 @@
                                     @csrf
                                     @method('PATCH')
 
-                                    <button type="submit"
-                                        class="btn btn-dark custom-btn-card px-4">
+                                    <button type="submit" class="btn btn-dark custom-btn-card px-4">
 
                                         Accetta
 
@@ -176,13 +216,9 @@
                 </div>
 
             </div>
-
         @else
-
-            <x-empty-state
-                title="Nessun articolo da revisionare"
-                message="Tutti gli articoli sono già stati controllati."
-                :actionRoute="route('homepage')"
+            <x-empty-state title="Nessun articolo da revisionare"
+                message="Tutti gli articoli sono già stati controllati." :actionRoute="route('homepage')"
                 actionLabel="Torna all'homepage" />
 
         @endif
