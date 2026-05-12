@@ -1,0 +1,27 @@
+body {
+    background:
+        radial-gradient(circle at top left, rgba(2, 170, 189, 0.18), transparent 28%),
+        radial-gradient(circle at bottom right, rgba(1, 117, 130, 0.16), transparent 30%),
+        linear-gradient(135deg, #02191D 0%, #013036 45%, #01242A 100%);
+    color: var(--text);
+    overflow-x: hidden;
+    font-family: 'Inter', sans-serif;
+    min-height: 100vh;
+    position: relative;
+}
+
+body .noise {
+    position: fixed;
+    inset: 0;
+    opacity: 0.03;
+    pointer-events: none;
+    background-image: url("https://grainy-gradients.vercel.app/noise.svg");
+}
+
+.app-main {
+    min-height: 100vh;
+}
+
+.section-shell {
+    padding: 90px 0;
+}

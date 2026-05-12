@@ -95,6 +95,8 @@
     <div class="container">
 
         <a class="navbar-brand fw-bold" href="{{ route('homepage') }}">
+            <img src="{{ asset('media/logo1.png') }}" alt="VendoHub AI" class="navbar-logo">
+
             VendoHub AI
         </a>
 

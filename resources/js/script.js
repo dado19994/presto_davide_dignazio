@@ -40,3 +40,11 @@ window.addEventListener('load', () => {
         ?.classList.add('hero-visible');
 
 });
+
+const navbar = document.querySelector('.custom-navbar');
+
+navbar.addEventListener('mousemove', (e) => {
+    const rect = navbar.getBoundingClientRect();
+    navbar.style.setProperty('--x', `${e.clientX - rect.left}px`);
+    navbar.style.setProperty('--y', `${e.clientY - rect.top}px`);
+});

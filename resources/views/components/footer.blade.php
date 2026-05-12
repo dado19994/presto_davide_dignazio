@@ -5,9 +5,11 @@
 
                 <!-- Brand -->
                 <div class="col-12 col-md-4 text-center text-md-start">
-                    <h5 class="text-white fw-bold mb-3">
-                        Story1
-                    </h5>
+                    {{-- <h5 class="text-white fw-bold mb-3">
+                        VendoHub AI
+                    </h5> --}}
+
+                    <img src="{{ asset('media/logo1.png') }}" alt="VendoHub AI" class="footer-logo">
 
                     <p class="footer-copy mb-0 px-3 px-md-0">
                         Una community semplice per pubblicare, scoprire e raccontare articoli.
@@ -47,8 +49,7 @@
                         Vuoi diventare revisore?
                     </h6>
 
-                    <a href="{{ route('become.revisor') }}"
-                       class="btn btn-outline-light px-4 py-2 rounded-pill">
+                    <a href="{{ route('become.revisor') }}" class="btn btn-outline-light px-4 py-2 rounded-pill">
                         Candidati ora
                     </a>
                 </div>
@@ -61,7 +62,7 @@
     <div class="bottom-bar py-3">
         <div class="container text-center">
             <p class="mb-0 text-white small">
-                © {{ date('Y') }} Story1 - Tutti i diritti riservati
+                © {{ date('Y') }} VendoHub AI - Tutti i diritti riservati
             </p>
         </div>
     </div>
@@ -128,4 +129,3 @@
     </p>
   </div>
 </footer> --}}
-

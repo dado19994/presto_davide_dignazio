@@ -1,0 +1,21 @@
+.article-card,
+.article-detail-card,
+.revisor-card,
+.glass-panel {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.08);
+    backdrop-filter: blur(18px);
+    border-radius: var(--radius);
+}
+
+.article-card {
+    overflow: hidden;
+    transition: .4s ease;
+    height: 100%;
+}
+
+.article-image {
+    width: 100%;
+    height: 260px;
+    object-fit: cover;
+}

@@ -1,0 +1,30 @@
+.hero-btn-primary {
+    background: #F97316;
+    color: white;
+    border: none;
+    padding: 16px 30px;
+    border-radius: 16px;
+    font-weight: 700;
+    transition: all 0.35s ease;
+}
+
+.hero-btn-secondary {
+    background: transparent;
+    border: 2px solid #F97316;
+    color: #F97316;
+    padding: 16px 30px;
+    border-radius: 16px;
+}
+
+.custom-btn-card {
+    background: var(--primary-orange);
+    color: white;
+    border-radius: 14px;
+    padding: 12px 24px;
+}
+
+.custom-btn-outline {
+    border: 2px solid var(--primary-orange);
+    color: var(--primary-orange);
+    border-radius: 14px;
+}

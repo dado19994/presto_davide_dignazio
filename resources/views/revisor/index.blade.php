@@ -31,67 +31,68 @@
 
                                 </div>
 
-                                <div class="row g-3 mt-1">
+                                <div class="row g-3 mt-3 align-items-start">
 
                                     @foreach ($article_to_check->images as $key => $image)
-                                        <div class="col-6 col-md-3">
-
-                                            <img src="{{ $image->getUrl(300, 300) }}"
-                                                class="img-fluid revisor-thumb-image"
-                                                alt="Immagine {{ $key + 1 }} dell'articolo {{ $article_to_check->title }}">
-
+                                        {{-- THUMB --}}
+                                        <div class="col-6 col-md-3 text-center">
+                                            <img src="{{ Storage::url($image->path) }}"
+                                                class="img-fluid revisor-thumb-image mx-auto d-block"
+                                                alt="Immagine {{ $key + 1 }}">
                                         </div>
-                                        <div class="col-md-5 ps-3">
-                                            <div class="card-body">
-                                                <h5>Labels</h5>
-                                                @if ($image->labels)
-                                                @foreach ($image->labels as $label)
-                                                        #{{ $label }},
 
-                                                @endforeach
-                                                @else
-                                                <p class="fst-italic">Nessuna label trovata</p>
+                                        {{-- LABELS + RATINGS --}}
+                                        <div class="col-12 col-md-9">
 
-                                                @endif
-                                            </div>
-                                        </div>
-                                        <div class="col-md-8 ps-3">
-                                            <div class="card-body">
-                                                <h5>Ratings</h5>
-                                                <div class="row justify-content-center">
-                                                    <div class="col-2">
-                                                        <div class="text-center mx-auto {{ $image->adult }}">
+                                            <div class="glass-panel p-3 h-100">
+
+                                                {{-- LABELS --}}
+                                                <div class="mb-3 text-center">
+                                                    <h6 class="fw-bold mb-2">Labels</h6>
+
+                                                    @if ($image->labels && count($image->labels))
+                                                        <div class="d-flex flex-wrap justify-content-center gap-2">
+                                                            @foreach ($image->labels as $label)
+                                                                <span class="badge bg-info text-dark">
+                                                                    {{ $label }}
+                                                                </span>
+                                                            @endforeach
                                                         </div>
-                                                    </div>
-                                                    <div class="col-10">adult</div>
+                                                    @else
+                                                        <p class="fst-italic text-muted mb-0">
+                                                            Nessuna label trovata
+                                                        </p>
+                                                    @endif
                                                 </div>
-                                                <div class="row justify-content-center">
-                                                    <div class="col-2">
-                                                        <div class="text-center mx-auto {{ $image->violence }}">
-                                                        </div>
+
+                                                {{-- RATINGS --}}
+                                                <div class="text-center">
+                                                    <h6 class="fw-bold mb-3">Ratings</h6>
+
+                                                    <div class="row g-2">
+
+                                                        @foreach (['adult', 'violence', 'spoof', 'racy', 'medical'] as $type)
+                                                            <div class="col-6 col-md-4">
+                                                                <div class="rating-box text-center p-2 rounded">
+
+                                                                    <div class="fw-bold text-uppercase small">
+                                                                        {{ $type }}
+                                                                    </div>
+
+                                                                    <div class="mt-1 {{ $image->$type }}">
+                                                                        ●
+                                                                    </div>
+
+                                                                </div>
+                                                            </div>
+                                                        @endforeach
+
                                                     </div>
-                                                    <div class="col-10">violence</div>
+
                                                 </div>
-                                                <div class="row justify-content-center">
-                                                    <div class="col-2">
-                                                        <div class="text-center mx-auto {{ $image->spoof }}">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-10">spoof</div>
+
                                             </div>
-                                            <div class="row justify-content-center">
-                                                <div class="col-2">
-                                                    <div class="text-cennter mx-auto {{ $image->racy }}">
-                                                    </div>
-                                                </div>
-                                                <div class="col-10">racy</div>
-                                            </div>
-                                            <div class="row justify-content-center">
-                                                <div class="col-2">
-                                                    <div class="text-center mx-auto {{ $image->medical }}"></div>
-                                                </div>
-                                                <div class="col-10">medical</div>
-                                            </div>
+
                                         </div>
                                     @endforeach
 
