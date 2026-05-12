@@ -95,7 +95,7 @@
     <div class="container">
 
         <a class="navbar-brand fw-bold" href="{{ route('homepage') }}">
-            Story1
+            VendoHub AI
         </a>
 
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"

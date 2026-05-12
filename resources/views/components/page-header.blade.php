@@ -1,4 +1,4 @@
-@props([
+{{-- @props([
     'eyebrow' => null,
     'title',
     'subtitle' => null,
@@ -24,4 +24,27 @@
             @endif
         </div>
     </div>
+</section> --}}
+
+
+{{-- opzione 2 --}}
+@props([
+ 'eyebrow' => null,
+ 'title',
+ 'subtitle' => null,
+])
+<section class="container page-header text-center">
+ @if($eyebrow)
+ <p class="page-eyebrow mb-3">
+ {{ $eyebrow }}
+ </p>
+ @endif
+ <h1 class="display-2 fw-bold text-white mb-4">
+ {{ $title }}
+ </h1>
+ @if($subtitle)
+ <p class="hero-subtitle mx-auto">
+ {{ $subtitle }}
+ </p>
+ @endif
 </section>
