@@ -38,7 +38,7 @@ class GoogleVisionSafeSearch implements ShouldQueue
         putenv('GOOGLE_APPLICATION_CREDENTIALS=' . base_path('google_credential.json'));
 
         $googleVisionClient = new ImageAnnotatorClient();
-        $google_image = VisionImage([
+        $google_image = new VisionImage([
             'content' => $image,
         ]);
 
@@ -65,12 +65,12 @@ class GoogleVisionSafeSearch implements ShouldQueue
         $racy = $safeSearchAnnotation->getRacy();
 
         $likeliHoodName = [
-            'text-secondary bi bi-circle-fill',
-            'text-success bi bi-check-circle-fill',
-            'text-success bi bi-check-circle-fill',
-            'text-warning bi bi-exclamation-circle-fill',
-            'text-warning bi bi-exclamation-circle-fill',
-            'text-danger bi bi-dash-circle-fill',
+            0 => 'text-secondary bi bi-circle-fill',
+            1 => 'text-success bi bi-check-circle-fill',
+            2 => 'text-success bi bi-check-circle-fill',
+            3 => 'text-warning bi bi-exclamation-circle-fill',
+            4 => 'text-warning bi bi-exclamation-circle-fill',
+            5 => 'text-danger bi bi-dash-circle-fill',
         ];
 
         $i->adult = $likeliHoodName[$adult];

@@ -37,7 +37,7 @@ class ResizeImage implements ShouldQueue
         SpatieImage::load($srcPath)
             ->crop($w, $h, CropPosition::Center)
             ->watermark(
-                resource_path('img/face.png'),
+                resource_path('img/watermark.png'),
                 width: 50,
                 height: 50,
                 paddingX: 5,

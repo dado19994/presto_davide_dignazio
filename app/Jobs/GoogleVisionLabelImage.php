@@ -8,7 +8,7 @@ use Google\Cloud\Vision\V1\BatchAnnotateImagesRequest;
 use Google\Cloud\Vision\V1\Client\ImageAnnotatorClient;
 use Google\Cloud\Vision\V1\Feature;
 use Google\Cloud\Vision\V1\Feature\Type;
-use Google\Cloud\Vision\V1\Image as VisionImage;;
+use Google\Cloud\Vision\V1\Image as VisionImage;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Queue\Queueable;
 
@@ -33,11 +33,11 @@ class GoogleVisionLabelImage implements ShouldQueue
             return;
         }
 
-        $image = file_get_contents(storage_path('app/public' . $i->path));
+        $image = file_get_contents(storage_path('app/public/' . $i->path));
         putenv('GOOGLE_APPLICATION_CREDENTIALS=' .base_path('google_credential.json'));
 
         $googleVisionClient = new ImageAnnotatorClient();
-        $google_image = VisionImage([
+        $google_image = new VisionImage([
             'content' => $image
         ]);
 
