@@ -45,7 +45,7 @@
 
                     </div>
                     <div class="d-flex justify-content-center">
-                        <button type="submit" class="btn btn-dark">Accedi</button>
+                        <button type="submit" class="btn custom-btn-card">Accedi</button>
                     </div>
                 </form>
             </div>

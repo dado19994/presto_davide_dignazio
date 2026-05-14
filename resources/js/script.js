@@ -1,30 +1,37 @@
-window.addEventListener('scroll',()=>{
+let lastScroll = 0;
 
-    const navbar=document.querySelector('.custom-navbar');
+window.addEventListener('scroll', () => {
+    const navbar = document.querySelector('.custom-navbar');
+    const currentScroll = window.scrollY;
 
-    if(window.scrollY > 40){
+    if (!navbar) return;
+
+    if (currentScroll > 40) {
         navbar.classList.add('scrolled');
-    }else{
+    } else {
         navbar.classList.remove('scrolled');
     }
 
+    lastScroll = currentScroll;
 });
 
 const revealElements=document.querySelectorAll(
     '.article-card, .glass-panel, .create-article-panel, .revisor-card, .empty-card'
 );
 
-const revealObserver=new IntersectionObserver((entries)=>{
+const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry, index) => {
 
-    entries.forEach(entry=>{
+        if (entry.isIntersecting) {
 
-        if(entry.isIntersecting){
-            entry.target.classList.add('reveal-active');
+            setTimeout(() => {
+                entry.target.classList.add('reveal-active');
+            }, index * 60); // effetto cascata
+
         }
 
     });
-
-},{threshold:0.15});
+}, { threshold: 0.15 });
 
 revealElements.forEach(el=>{
 
@@ -35,9 +42,11 @@ revealElements.forEach(el=>{
 });
 
 window.addEventListener('load', () => {
+    const hero = document.querySelector('.hero-title');
 
-    document.querySelector('.hero-title')
-        ?.classList.add('hero-visible');
+    if (!hero) return;
 
+    setTimeout(() => {
+        hero.classList.add('hero-visible');
+    }, 200);
 });
-
