@@ -21,4 +21,15 @@
             <i class="fas fa-spinner fa-spin me-1"></i> Analisi di mercato in corso...
         </div>
     @endif
+
 </div>
+
+    <style>
+    .ai-suggestion-box {
+        background: rgba(99, 102, 241, 0.05);
+    }
+</style>
+</div>
+
+
+

@@ -86,7 +86,7 @@
                     <!-- Bottone -->
                     <div class="text-center">
 
-                        <button type="submit" class="btn btn-dark custom-btn">
+                        <button type="submit" class="btn custom-btn-card">
                             Registrati
                         </button>
 
