@@ -47,6 +47,7 @@ body {
     min-height: 100vh;
     position: relative;
 }
+
 /* effetto noise */
 
 .noise-overlay {
@@ -62,19 +63,36 @@ body {
 
     mix-blend-mode: soft-light;
 
-    transform: translate3d(0,0,0);
+    transform: translate3d(0, 0, 0);
 
     animation: grainMove 1s steps(3) infinite;
 }
 
 /* movimento per simulare grana analogica */
 @keyframes grainMove {
-    0% { transform: translate(0,0); }
-    20% { transform: translate(-2%, 1%); }
-    40% { transform: translate(3%, -2%); }
-    60% { transform: translate(-3%, 2%); }
-    80% { transform: translate(2%, -3%); }
-    100% { transform: translate(0,0); }
+    0% {
+        transform: translate(0, 0);
+    }
+
+    20% {
+        transform: translate(-2%, 1%);
+    }
+
+    40% {
+        transform: translate(3%, -2%);
+    }
+
+    60% {
+        transform: translate(-3%, 2%);
+    }
+
+    80% {
+        transform: translate(2%, -3%);
+    }
+
+    100% {
+        transform: translate(0, 0);
+    }
 }
 
 
@@ -97,7 +115,7 @@ body::before {
     content: '';
 
     position: fixed;
-     inset: 0;
+    inset: 0;
     pointer-events: none;
 
     width: 700px;
@@ -106,11 +124,9 @@ body::before {
     top: -200px;
     right: -200px;
 
-     background: radial-gradient(
-        circle at center,
-        transparent 40%,
-        rgba(0,0,0,0.35) 100%
-    );
+    background: radial-gradient(circle at center,
+            transparent 40%,
+            rgba(0, 0, 0, 0.35) 100%);
 
     filter: blur(80px);
 
@@ -121,23 +137,33 @@ body::before {
 
 body::after {
     content: '';
-
     position: fixed;
-
-    width: 600px;
-    height: 600px;
-
-    bottom: -250px;
-    left: -250px;
-
-    background: radial-gradient(circle,
-            rgba(2, 170, 189, 0.12),
-            transparent 70%);
-
-    filter: blur(100px);
-
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image:
+        radial-gradient(rgba(2, 170, 189, 0.08) 1px, transparent 1px),
+        radial-gradient(rgba(2, 170, 189, 0.08) 1px, transparent 1px);
+    background-size: 60px 60px;
+    background-position: 0 0, 30px 30px;
     z-index: -1;
+    pointer-events: none;
+    opacity: 0.5;
+    animation: neuralFlow 30s linear infinite;
 }
+
+@keyframes neuralFlow {
+    from {
+        background-position: 0 0, 30px 30px;
+    }
+
+    to {
+        background-position: 120px 120px, 150px 150px;
+    }
+}
+
+
 
 @keyframes pulseGlow {
     0% {
@@ -333,7 +359,7 @@ body::after {
     position: absolute;
     inset: 0;
     border-radius: inherit;
-    background: rgba(249,115,22,0.4);
+    background: rgba(249, 115, 22, 0.4);
     opacity: 0;
     transform: scale(1);
     animation: pulseCTA 2.5s infinite;
@@ -438,10 +464,12 @@ body::after {
         transform: scale(1);
         opacity: 0.3;
     }
+
     70% {
         transform: scale(1.15);
         opacity: 0;
     }
+
     100% {
         opacity: 0;
     }
@@ -489,7 +517,7 @@ body::after {
     border-color: rgba(249, 115, 22, 0.25);
 
     box-shadow:
-        0 30px 80px rgba(0,0,0,0.5),
+        0 30px 80px rgba(0, 0, 0, 0.5),
         0 0 30px rgba(249, 115, 22, 0.12);
 }
 
@@ -914,30 +942,8 @@ body::after {
     gap: 10px;
 }
 
-<<<<<<< Updated upstream
-/* Neural Data Stream Effect */
-body::after {
-    content: '';
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-image:
-        radial-gradient(rgba(2, 170, 189, 0.08) 1px, transparent 1px),
-        radial-gradient(rgba(2, 170, 189, 0.08) 1px, transparent 1px);
-    background-size: 60px 60px;
-    background-position: 0 0, 30px 30px;
-    z-index: -1;
-    pointer-events: none;
-    opacity: 0.5;
-    animation: neuralFlow 30s linear infinite;
-}
 
-@keyframes neuralFlow {
-    from { background-position: 0 0, 30px 30px; }
-    to { background-position: 120px 120px, 150px 150px; }
-}
+/* Neural Data Stream Effect */
 
 /* AI Assistant Floating Core */
 .ai-assistant-core {
@@ -970,8 +976,17 @@ body::after {
 }
 
 @keyframes corePulse {
-    0%, 100% { transform: translateY(0) scale(1); filter: brightness(1); }
-    50% { transform: translateY(-10px) scale(1.05); filter: brightness(1.2); }
+
+    0%,
+    100% {
+        transform: translateY(0) scale(1);
+        filter: brightness(1);
+    }
+
+    50% {
+        transform: translateY(-10px) scale(1.05);
+        filter: brightness(1.2);
+    }
 }
 
 .ai-tooltip {
@@ -996,7 +1011,7 @@ body::after {
     opacity: 1;
     transform: translateY(0);
 }
-=======
+
 /* PAGINATION CUSTOM */
 
 .pagination {
@@ -1076,4 +1091,22 @@ body::after {
     margin-top: 18px;
 }
 
->>>>>>> Stashed changes
+
+.cursor-pointer {
+    cursor: pointer;
+}
+
+.shadow-2xl {
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+}
+
+  .bg-dark-light {
+        background-color: rgba(255, 255, 255, 0.05);
+    }
+    .messages-list::-webkit-scrollbar {
+        width: 4px;
+    }
+    .messages-list::-webkit-scrollbar-thumb {
+        background: rgba(255, 255, 255, 0.2);
+        border-radius: 10px;
+    }

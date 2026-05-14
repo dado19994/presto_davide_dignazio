@@ -63,7 +63,8 @@
 
                         <div class="article-detail-price mb-4 d-flex align-items-center justify-content-between">
                             <span class="fs-2 fw-bold">€ {{ number_format($article->price, 2, ',', '.') }}</span>
-                            @livewire('checkout-component', ['article' => $article])
+                            {{-- @livewire('checkout-component', ['article' => $article]) --}}
+                            <livewire:checkout-component :article="$article" />
                         </div>
 
                         <div class="article-detail-description mb-4">
@@ -86,7 +87,8 @@
 
                         {{-- CHAT INTEGRATION --}}
                         <div class="mt-4">
-                            @livewire('chat-component', ['article' => $article])
+                            {{-- @livewire('chat-component', ['article' => $article]) --}}
+                            <livewire:chat-component :article="$article" />
                         </div>
 
                     </div>

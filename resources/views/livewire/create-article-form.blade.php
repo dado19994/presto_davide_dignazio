@@ -54,7 +54,7 @@
                                 @enderror
 
                                 {{-- AI PRICE SUGGESTION --}}
-                                @livewire('price-suggester', ['title' => $title, 'categoryId' => $category])
+                                <livewire:price-suggester :title="$title" :categoryId="$category" />
                             </div>
 
                             <div>

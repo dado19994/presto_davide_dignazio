@@ -31,15 +31,3 @@
     @endauth
 </div>
 
-<style>
-    .bg-dark-light {
-        background-color: rgba(255, 255, 255, 0.05);
-    }
-    .messages-list::-webkit-scrollbar {
-        width: 4px;
-    }
-    .messages-list::-webkit-scrollbar-thumb {
-        background: rgba(255, 255, 255, 0.2);
-        border-radius: 10px;
-    }
-</style>
