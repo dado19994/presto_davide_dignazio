@@ -42,4 +42,9 @@ class PublicController extends Controller
         session()->put('locale', $lang);
         return redirect()->back();
     }
+
+    public function dashboard()
+    {
+        return view('user.dashboard');
+    }
 }

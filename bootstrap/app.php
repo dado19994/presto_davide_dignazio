@@ -2,6 +2,7 @@
 
 use App\Http\Middleware\IsRevisor;
 use App\Http\Middleware\SetLocaleMiddleware;
+use App\Http\Middleware\TrackArticleAnalytics;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
@@ -13,7 +14,10 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware): void {
-        $middleware->web(append: [SetLocaleMiddleware::class]);
+        $middleware->web(append: [
+            SetLocaleMiddleware::class,
+            TrackArticleAnalytics::class
+        ]);
         $middleware->alias([
             'isRevisor' => IsRevisor::class
         ]);

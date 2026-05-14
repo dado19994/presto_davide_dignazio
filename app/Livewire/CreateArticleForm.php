@@ -75,6 +75,16 @@ class CreateArticleForm extends Component
         $this->images = [];
     }
 
+    public function updatedTitle($value)
+    {
+        $this->dispatch('titleUpdated', $value)->to(PriceSuggester::class);
+    }
+
+    public function updatedCategory($value)
+    {
+        $this->dispatch('categoryUpdated', $value)->to(PriceSuggester::class);
+    }
+
     public function updatedTemporaryImages()
     {
         if ($this->validate([

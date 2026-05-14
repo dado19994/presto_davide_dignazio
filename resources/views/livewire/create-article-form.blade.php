@@ -52,6 +52,9 @@
                                 @error('price')
                                     <p class="fst-italic text-danger mt-2 mb-0">{{ $message }}</p>
                                 @enderror
+
+                                {{-- AI PRICE SUGGESTION --}}
+                                @livewire('price-suggester', ['title' => $title, 'categoryId' => $category])
                             </div>
 
                             <div>
