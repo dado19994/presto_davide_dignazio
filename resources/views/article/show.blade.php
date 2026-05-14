@@ -54,12 +54,16 @@
                             </a>
                         @endif
 
-                        <h2 class="fw-bold mt-3 mb-4">
+                        <h2 class="fw-bold mt-3 mb-4 d-flex align-items-center gap-2">
                             {{ $article->title }}
+                            <span class="badge bg-primary-subtle text-primary border border-primary border-opacity-25 rounded-pill px-3 py-2" style="font-size: 0.7rem;" title="Questo articolo è stato validato dai nostri sistemi di AI">
+                                <i class="fas fa-check-circle me-1"></i> AI VALIDATED
+                            </span>
                         </h2>
 
-                        <div class="article-detail-price mb-4">
-                            € {{ number_format($article->price, 2, ',', '.') }}
+                        <div class="article-detail-price mb-4 d-flex align-items-center justify-content-between">
+                            <span class="fs-2 fw-bold">€ {{ number_format($article->price, 2, ',', '.') }}</span>
+                            @livewire('checkout-component', ['article' => $article])
                         </div>
 
                         <div class="article-detail-description mb-4">
@@ -67,7 +71,7 @@
                             <p class="mb-0">{{ $article->description }}</p>
                         </div>
 
-                        <div class="d-flex justify-content-center justify-content-lg-start gap-3 flex-wrap">
+                        <div class="d-flex justify-content-center justify-content-lg-start gap-3 flex-wrap mb-4">
                             <a href="{{ route('article.index') }}" class="btn btn-dark custom-btn-card px-4">
                                 Torna agli articoli
                             </a>
@@ -80,9 +84,21 @@
                             @endif
                         </div>
 
+                        {{-- CHAT INTEGRATION --}}
+                        <div class="mt-4">
+                            @livewire('chat-component', ['article' => $article])
+                        </div>
+
                     </div>
                 </div>
 
+            </div>
+        </div>
+
+        {{-- USER REVIEWS INTEGRATION --}}
+        <div class="row mt-5 justify-content-center">
+            <div class="col-12 col-lg-10">
+                @livewire('user-review-component', ['user' => $article->user])
             </div>
         </div>
     </section>

@@ -23,6 +23,15 @@
 
     <x-footer />
 
+    {{-- AI Assistant Floating Core --}}
+    <div class="ai-assistant-core d-none d-md-flex">
+        <i class="fas fa-microchip"></i>
+        <div class="ai-tooltip shadow-lg">
+            <p class="fw-bold text-primary mb-1">VendoHub AI Assistant</p>
+            <p class="m-0 small">Ciao! Sono qui per aiutarti a ottimizzare i tuoi annunci e le tue vendite.</p>
+        </div>
+    </div>
+
 </body>
 
 </html> --}}

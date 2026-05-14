@@ -23,5 +23,7 @@ Route::get('/make/revisor/{user}', [RevisorController::class, 'makeRevisor'])->n
 
 Route::get('/search/article', [PublicController::class, 'searchArticles'])->name('article.searched');
 
+Route::get('/dashboard', [PublicController::class, 'dashboard'])->middleware('auth')->name('user.dashboard');
+
 //cambio lingua
 Route::post('/lingua/{lang}', [PublicController::class, 'setLanguage'])->name('setLocale');

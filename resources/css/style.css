@@ -840,3 +840,85 @@ body::after {
     align-items: center;
     gap: 10px;
 }
+
+/* Neural Data Stream Effect */
+body::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image:
+        radial-gradient(rgba(2, 170, 189, 0.08) 1px, transparent 1px),
+        radial-gradient(rgba(2, 170, 189, 0.08) 1px, transparent 1px);
+    background-size: 60px 60px;
+    background-position: 0 0, 30px 30px;
+    z-index: -1;
+    pointer-events: none;
+    opacity: 0.5;
+    animation: neuralFlow 30s linear infinite;
+}
+
+@keyframes neuralFlow {
+    from { background-position: 0 0, 30px 30px; }
+    to { background-position: 120px 120px, 150px 150px; }
+}
+
+/* AI Assistant Floating Core */
+.ai-assistant-core {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 60px;
+    height: 60px;
+    background: radial-gradient(circle at 30% 30%, var(--accent), var(--primary));
+    border-radius: 50%;
+    box-shadow: 0 0 20px rgba(2, 170, 189, 0.4), inset 0 0 15px rgba(255, 255, 255, 0.2);
+    z-index: 1000;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: corePulse 4s ease-in-out infinite;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.ai-assistant-core:hover {
+    transform: scale(1.1) rotate(15deg);
+    box-shadow: 0 0 40px rgba(2, 170, 189, 0.6);
+}
+
+.ai-assistant-core i {
+    font-size: 1.5rem;
+    color: white;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}
+
+@keyframes corePulse {
+    0%, 100% { transform: translateY(0) scale(1); filter: brightness(1); }
+    50% { transform: translateY(-10px) scale(1.05); filter: brightness(1.2); }
+}
+
+.ai-tooltip {
+    position: absolute;
+    right: 80px;
+    bottom: 10px;
+    background: rgba(1, 48, 54, 0.9);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(2, 170, 189, 0.3);
+    padding: 12px 20px;
+    border-radius: 20px 20px 0 20px;
+    width: 250px;
+    color: white;
+    font-size: 0.85rem;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(10px);
+    transition: all 0.3s ease;
+}
+
+.ai-assistant-core:hover .ai-tooltip {
+    opacity: 1;
+    transform: translateY(0);
+}
