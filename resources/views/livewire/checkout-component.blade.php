@@ -78,8 +78,3 @@
         </div>
     </div>
 </div>
-
-<style>
-    .cursor-pointer { cursor: pointer; }
-    .shadow-2xl { box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5); }
-</style>

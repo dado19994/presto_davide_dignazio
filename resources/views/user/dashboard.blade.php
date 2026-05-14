@@ -5,7 +5,7 @@
     <section class="container py-5">
         <div class="row">
             <div class="col-12">
-                @livewire('user-analytics-dashboard')
+                <livewire:user-analytics-dashboard />
             </div>
         </div>
     </section>

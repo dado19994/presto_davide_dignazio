@@ -261,6 +261,10 @@
             <x-_locale lang="uk" />
             <x-_locale lang="es" />
 
+            <div class="ms-lg-3">
+                <livewire:navbar-cart-counter />
+            </div>
+
         </div>
     </div>
 </nav>

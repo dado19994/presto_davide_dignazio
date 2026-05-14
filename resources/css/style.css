@@ -948,3 +948,46 @@ body::after {
         padding: 15px !important;
     }
 }
+
+/* Component Specific Styles */
+.favorite-btn {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: white;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(5px);
+}
+.favorite-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: scale(1.1);
+    color: #fb7185;
+}
+.favorite-btn.active {
+    color: #fb7185;
+    background: rgba(251, 113, 133, 0.1);
+    border-color: rgba(251, 113, 133, 0.3);
+}
+
+.cursor-pointer { cursor: pointer; }
+.shadow-2xl { box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5); }
+
+.ai-suggestion-box {
+    background: rgba(99, 102, 241, 0.05);
+}
+
+.bg-dark-light {
+    background-color: rgba(255, 255, 255, 0.05);
+}
+.messages-list::-webkit-scrollbar {
+    width: 4px;
+}
+.messages-list::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+}

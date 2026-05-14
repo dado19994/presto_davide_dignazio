@@ -44,7 +44,7 @@
                         @endif
 
                         <div class="position-absolute top-0 end-0 p-3">
-                            @livewire('favorite-button', ['articleId' => $article->id])
+                            <livewire:favorite-button :articleId="$article->id" />
                         </div>
                     </div>
                 </div>
@@ -70,8 +70,8 @@
                         <div class="article-detail-price mb-4 d-flex flex-wrap align-items-center justify-content-between gap-3">
                             <span class="fs-2 fw-bold">€ {{ number_format($article->price, 2, ',', '.') }}</span>
                             <div class="d-flex gap-2">
-                                @livewire('cart-button', ['articleId' => $article->id])
-                                @livewire('checkout-component', ['article' => $article])
+                                <livewire:cart-button :articleId="$article->id" />
+                                <livewire:checkout-component :article="$article" />
                             </div>
                         </div>
 
@@ -95,7 +95,7 @@
 
                         {{-- CHAT INTEGRATION --}}
                         <div class="mt-4">
-                            @livewire('chat-component', ['article' => $article])
+                            <livewire:chat-component :article="$article" />
                         </div>
 
                     </div>
@@ -107,7 +107,7 @@
         {{-- USER REVIEWS INTEGRATION --}}
         <div class="row mt-5 justify-content-center">
             <div class="col-12 col-lg-10">
-                @livewire('user-review-component', ['user' => $article->user])
+                <livewire:user-review-component :user="$article->user" />
             </div>
         </div>
     </section>
