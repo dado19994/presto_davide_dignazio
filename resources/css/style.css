@@ -923,3 +923,28 @@ body::after {
     opacity: 1;
     transform: translateY(0);
 }
+
+/* Modal Fixes */
+.modal-backdrop {
+    background-color: rgba(2, 25, 29, 0.9) !important;
+    backdrop-filter: blur(8px);
+}
+
+.modal-content {
+    background: rgba(15, 23, 42, 0.98) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    backdrop-filter: blur(20px);
+}
+
+/* Responsiveness Adjustments */
+@media (max-width: 768px) {
+    .article-detail-image {
+        height: 300px !important;
+    }
+    .article-detail-card {
+        padding: 15px !important;
+    }
+    .chat-container {
+        padding: 15px !important;
+    }
+}

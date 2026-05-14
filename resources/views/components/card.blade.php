@@ -40,7 +40,10 @@
 
 
 {{-- Opzione 2 --}}
-<div class="article-card p-4 h-100">
+<div class="article-card p-4 h-100 position-relative">
+    <div class="position-absolute top-0 end-0 p-3" style="z-index: 10;">
+        @livewire('favorite-button', ['articleId' => $article->id])
+    </div>
     <div class="text-center mb-4 overflow-hidden rounded-4">
         <img src="{{ $article->images->isNotEmpty() ? $article->images->first()->getUrl(300, 300) : 'https://picsum.photos/500' }}"
             class="img-fluid article-image" alt="{{ $article->title }}">

@@ -9,38 +9,44 @@
 
                 {{-- CAROSELLO --}}
                 <div class="col-12 col-lg-6">
-                    @if ($article->images->count() > 0)
-                        <div id="articleCarousel" class="carousel slide article-detail-carousel" data-bs-ride="carousel">
+                    <div class="position-relative">
+                        @if ($article->images->count() > 0)
+                            <div id="articleCarousel" class="carousel slide article-detail-carousel" data-bs-ride="carousel">
 
-                            <div class="carousel-inner">
-                                @foreach ($article->images as $key => $image)
-                                    <div class="carousel-item @if ($loop->first) active @endif">
+                                <div class="carousel-inner">
+                                    @foreach ($article->images as $key => $image)
+                                        <div class="carousel-item @if ($loop->first) active @endif">
 
-                                        <img src="{{ $image->getUrl() }}"
-                                            class="d-block w-100 article-detail-image shadow"
-                                            alt="Immagine {{ $key + 1 }} dell'articolo {{ $article->title }}">
+                                            <img src="{{ $image->getUrl() }}"
+                                                class="d-block w-100 article-detail-image shadow"
+                                                alt="Immagine {{ $key + 1 }} dell'articolo {{ $article->title }}">
 
-                                    </div>
-                                @endforeach
+                                        </div>
+                                    @endforeach
+                                </div>
+
+                                <button class="carousel-control-prev" type="button" data-bs-target="#articleCarousel"
+                                    data-bs-slide="prev">
+                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                    <span class="visually-hidden">Previous</span>
+                                </button>
+
+                                <button class="carousel-control-next" type="button" data-bs-target="#articleCarousel"
+                                    data-bs-slide="next">
+                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                    <span class="visually-hidden">Next</span>
+                                </button>
+
                             </div>
+                        @else
+                            <img src="https://picsum.photos/600" alt="Nessuna foto inserita"
+                                class="img-fluid article-detail-image shadow">
+                        @endif
 
-                            <button class="carousel-control-prev" type="button" data-bs-target="#articleCarousel"
-                                data-bs-slide="prev">
-                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                <span class="visually-hidden">Previous</span>
-                            </button>
-
-                            <button class="carousel-control-next" type="button" data-bs-target="#articleCarousel"
-                                data-bs-slide="next">
-                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                <span class="visually-hidden">Next</span>
-                            </button>
-
+                        <div class="position-absolute top-0 end-0 p-3">
+                            @livewire('favorite-button', ['articleId' => $article->id])
                         </div>
-                    @else
-                        <img src="https://picsum.photos/600" alt="Nessuna foto inserita"
-                            class="img-fluid article-detail-image shadow">
-                    @endif
+                    </div>
                 </div>
 
                 {{-- CONTENUTO --}}
@@ -63,7 +69,8 @@
 
                         <div class="article-detail-price mb-4 d-flex flex-wrap align-items-center justify-content-between gap-3">
                             <span class="fs-2 fw-bold">€ {{ number_format($article->price, 2, ',', '.') }}</span>
-                            <div class="ms-md-auto">
+                            <div class="d-flex gap-2">
+                                @livewire('cart-button', ['articleId' => $article->id])
                                 @livewire('checkout-component', ['article' => $article])
                             </div>
                         </div>
