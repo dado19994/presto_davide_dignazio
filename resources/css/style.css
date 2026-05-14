@@ -700,6 +700,7 @@ body::after {
     margin: 0 auto;
     padding: 30px;
     transition: all 0.4s ease;
+    overflow: hidden;
 }
 
 .article-detail-card:hover {

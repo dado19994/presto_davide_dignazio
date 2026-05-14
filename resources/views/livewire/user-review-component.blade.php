@@ -1,4 +1,4 @@
-<div class="user-reviews-section mt-5 glass-panel p-4 rounded-4 shadow-lg border border-white border-opacity-10">
+<div class="user-reviews-section mt-5 glass-panel p-4 rounded-4 shadow-lg border border-white border-opacity-10 w-100 overflow-hidden">
     <h4 class="text-white fw-bold mb-4 d-flex align-items-center">
         <i class="fas fa-star text-warning me-2"></i> Feedback e Valutazioni
     </h4>

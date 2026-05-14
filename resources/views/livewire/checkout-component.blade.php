@@ -7,7 +7,7 @@
     <!-- Modal -->
     <div class="modal fade" id="checkoutModal" tabindex="-1" aria-labelledby="checkoutModalLabel" aria-hidden="true" wire:ignore.self>
         <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content glass-panel border-0 rounded-4 overflow-hidden shadow-2xl">
+            <div class="modal-content border-0 rounded-4 overflow-hidden shadow-2xl" style="background: rgba(15, 23, 42, 0.98); backdrop-filter: blur(20px);">
                 <div class="modal-header border-0 pb-0">
                     <h5 class="modal-title text-white fw-bold" id="checkoutModalLabel">Checkout Sicuro</h5>
                     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>

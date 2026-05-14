@@ -1,4 +1,4 @@
-<div class="chat-container glass-panel p-4 rounded-4 shadow-lg" wire:poll.5s="loadMessages">
+<div class="chat-container glass-panel p-4 rounded-4 shadow-lg w-100" style="max-width: 600px; margin: 0 auto;" wire:poll.5s="loadMessages">
     <div class="chat-header mb-3 pb-2 border-bottom border-secondary d-flex align-items-center">
         <div class="status-indicator me-2 bg-success rounded-circle" style="width: 10px; height: 10px;"></div>
         <h5 class="m-0 text-white fw-bold">Chat con il venditore</h5>
