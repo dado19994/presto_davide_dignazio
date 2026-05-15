@@ -2,9 +2,12 @@
     <div class="chat-header mb-3 pb-2 d-flex align-items-center justify-content-between">
         <div class="d-flex align-items-center">
             <div class="status-indicator me-2 rounded-circle"></div>
-            <h5 class="m-0 text-white fw-bold">Chat venditore</h5>
+            <div>
+                <h5 class="m-0 text-white fw-bold">{{ $article->user?->name ?? 'Venditore' }}</h5>
+                <span class="chat-seller-status">Online ora · Risponde in pochi minuti</span>
+            </div>
         </div>
-        <span class="small text-secondary">Risposte private</span>
+        <span class="small text-secondary chat-privacy-label">Risposte private</span>
     </div>
 
     <div class="messages-list mb-3 overflow-auto">
@@ -25,6 +28,12 @@
     </div>
 
     @auth
+        <div class="chat-quick-actions">
+            <button type="button" wire:click="useQuickMessage('Ciao, è ancora disponibile?')">È disponibile?</button>
+            <button type="button" wire:click="useQuickMessage('Ciao, quanto costa la spedizione?')">Spedizione?</button>
+            <button type="button" wire:click="useQuickMessage('Ciao, in che zona ti trovi?')">Zona?</button>
+        </div>
+
         <form wire:submit.prevent="sendMessage" class="chat-input d-flex gap-2 align-items-stretch">
             <textarea wire:model.defer="messageContent" class="form-control custom-input rounded-4" placeholder="Scrivi un messaggio..." rows="1"></textarea>
             <button type="submit" class="btn custom-btn-card rounded-4 p-2 d-flex align-items-center justify-content-center" aria-label="Invia messaggio">

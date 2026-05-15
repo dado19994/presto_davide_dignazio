@@ -5,14 +5,20 @@
                 <div class="ai-icon me-2">
                     <i class="fas fa-robot text-primary"></i>
                 </div>
-                <span class="text-white small fw-bold">AI Price Suggestion</span>
+                <span class="text-white small fw-bold">Suggerimento prezzo reale</span>
             </div>
             <p class="text-white-50 small m-0">
-                Basandoci sugli annunci simili, ti suggeriamo un prezzo di:
+                Basato su {{ $sampleSize }} annunci {{ $sampleSize >= 3 ? 'simili' : 'della categoria' }} nel catalogo:
                 <span class="text-primary fw-bold">€ {{ number_format($suggestedPrice, 2, ',', '.') }}</span>
             </p>
+            @if($marketRange)
+                <p class="text-white-50 small mt-1 mb-0">
+                    Range rilevato: € {{ number_format($marketRange['min'], 2, ',', '.') }} -
+                    € {{ number_format($marketRange['max'], 2, ',', '.') }} · Affidabilità {{ $confidence }}
+                </p>
+            @endif
             <button type="button" class="btn btn-sm btn-link text-primary p-0 mt-1 small text-decoration-none"
-                    onclick="document.getElementById('price').value = '{{ $suggestedPrice }}'; document.getElementById('price').dispatchEvent(new Event('input'));">
+                    onclick="const input = document.getElementById('price'); input.value = '{{ $suggestedPrice }}'; input.dispatchEvent(new Event('input', { bubbles: true })); input.dispatchEvent(new Event('change', { bubbles: true }));">
                 Applica suggerimento
             </button>
         </div>
@@ -27,5 +33,3 @@
     }
 </style>
 </div>
-
-

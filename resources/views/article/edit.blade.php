@@ -22,6 +22,16 @@
                         </div>
 
                         <div class="col-12 col-md-5">
+                            <label for="brand_model" class="form-label fw-bold">Marca o modello</label>
+                            <input type="text" id="brand_model" name="brand_model"
+                                class="form-control custom-input @error('brand_model') is-invalid @enderror"
+                                value="{{ old('brand_model', $article->brand_model) }}">
+                            @error('brand_model')
+                                <p class="text-danger small mt-2">{{ $message }}</p>
+                            @enderror
+                        </div>
+
+                        <div class="col-12 col-md-5">
                             <label for="price" class="form-label fw-bold">Prezzo</label>
                             <input type="text" id="price" name="price"
                                 class="form-control custom-input @error('price') is-invalid @enderror"
@@ -42,6 +52,16 @@
                                 @endforeach
                             </select>
                             @error('category_id')
+                                <p class="text-danger small mt-2">{{ $message }}</p>
+                            @enderror
+                        </div>
+
+                        <div class="col-12">
+                            <label for="tags" class="form-label fw-bold">Tag</label>
+                            <input type="text" id="tags" name="tags"
+                                class="form-control custom-input @error('tags') is-invalid @enderror"
+                                value="{{ old('tags', $article->tags) }}" placeholder="#iphone #smartphone">
+                            @error('tags')
                                 <p class="text-danger small mt-2">{{ $message }}</p>
                             @enderror
                         </div>

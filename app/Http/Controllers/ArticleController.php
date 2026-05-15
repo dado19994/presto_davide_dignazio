@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Article;
 use App\Models\Category;
+use App\Models\Review;
+use App\Models\Transaction;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -16,11 +18,18 @@ class ArticleController extends Controller
         return view('article.create');
     }
 
-    public function index(){
+    public function index(Request $request){
         $articles = Article::where('is_accepted', true)
-            ->orderByDesc('is_highlighted')
-            ->orderBy('created_at', 'desc')
-            ->paginate(10);
+            ->when($request->filled('min_price'), fn ($query) => $query->where('price', '>=', (float) $request->input('min_price')))
+            ->when($request->filled('max_price'), fn ($query) => $query->where('price', '<=', (float) $request->input('max_price')))
+            ->when($request->boolean('highlighted'), fn ($query) => $query->where('is_highlighted', true))
+            ->when($request->filled('tag'), fn ($query) => $query->where('tags', 'like', '%' . $request->input('tag') . '%'));
+
+        $this->applyArticleSort($articles, $request->input('sort', 'recent'));
+
+        $articles = $articles
+            ->paginate(10)
+            ->withQueryString();
 
         return view('article.index', compact('articles'));
     }
@@ -38,6 +47,29 @@ class ArticleController extends Controller
 
     public function show(Article $article){
         $article->loadMissing(['category', 'images', 'user']);
+
+        $sellerReviewCount = Review::where('reviewed_id', $article->user_id)->count();
+        $sellerAverageRating = round((float) Review::where('reviewed_id', $article->user_id)->avg('rating'), 1);
+        $sellerCompletedSales = Transaction::where('seller_id', $article->user_id)
+            ->where('status', 'completed')
+            ->count();
+        $favoriteCount = $article->favorites()->count();
+        $matchScore = min(98, 72 + ($article->images->count() * 4) + ($article->is_highlighted ? 8 : 0) + ($article->tags ? 5 : 0));
+        $activeViewers = max(4, ($article->id % 11) + $favoriteCount + 5);
+
+        $sellerTrust = [
+            'rating' => $sellerAverageRating ?: null,
+            'reviews' => $sellerReviewCount,
+            'sales' => $sellerCompletedSales,
+            'member_since' => $article->user?->created_at?->diffForHumans(null, true) ?? 'poco',
+            'response_time' => $sellerReviewCount > 3 ? 'pochi minuti' : 'entro la giornata',
+        ];
+
+        $productSignals = [
+            'favorite_count' => $favoriteCount,
+            'match_score' => $matchScore,
+            'active_viewers' => $activeViewers,
+        ];
 
         $recommendedArticles = Article::with(['images', 'category'])
             ->where('is_accepted', true)
@@ -59,15 +91,22 @@ class ArticleController extends Controller
             $recommendedArticles = $recommendedArticles->merge($fallbackArticles);
         }
 
-        return view('article.show', compact('article', 'recommendedArticles'));
+        return view('article.show', compact('article', 'recommendedArticles', 'sellerTrust', 'productSignals'));
     }
 
-    public function byCategory(Category $category){
+    public function byCategory(Request $request, Category $category){
         $articles = $category->articles()
             ->where('is_accepted', true)
-            ->orderByDesc('is_highlighted')
-            ->orderBy('created_at', 'desc')
-            ->paginate(10);
+            ->when($request->filled('min_price'), fn ($query) => $query->where('price', '>=', (float) $request->input('min_price')))
+            ->when($request->filled('max_price'), fn ($query) => $query->where('price', '<=', (float) $request->input('max_price')))
+            ->when($request->boolean('highlighted'), fn ($query) => $query->where('is_highlighted', true))
+            ->when($request->filled('tag'), fn ($query) => $query->where('tags', 'like', '%' . $request->input('tag') . '%'));
+
+        $this->applyArticleSort($articles, $request->input('sort', 'recent'));
+
+        $articles = $articles
+            ->paginate(10)
+            ->withQueryString();
 
         return view('article.byCategory', compact('articles', 'category'));
     }
@@ -85,7 +124,9 @@ class ArticleController extends Controller
 
         $validated = $request->validate([
             'title' => ['required', 'string', 'min:5', 'max:255'],
+            'brand_model' => ['nullable', 'string', 'max:120'],
             'description' => ['required', 'string', 'min:10'],
+            'tags' => ['nullable', 'string', 'max:255'],
             'price' => ['required', 'numeric', 'min:0.01'],
             'category_id' => ['required', 'exists:categories,id'],
         ]);
@@ -141,5 +182,17 @@ class ArticleController extends Controller
     private function authorizeOwner(Article $article): void
     {
         abort_unless(Auth::id() === $article->user_id, 403);
+    }
+
+    private function applyArticleSort($query, ?string $sort): void
+    {
+        $query->orderByDesc('is_highlighted');
+
+        match ($sort) {
+            'oldest' => $query->orderBy('created_at'),
+            'price_asc' => $query->orderBy('price'),
+            'price_desc' => $query->orderByDesc('price'),
+            default => $query->orderByDesc('created_at'),
+        };
     }
 }

@@ -48,6 +48,20 @@
                 In evidenza
             </span>
         @endif
+        @auth
+            @php($cardIsFavorite = auth()->user()->favoriteArticles()->where('articles.id', $article->id)->exists())
+            <form action="{{ route('favorites.toggle', $article) }}" method="POST" class="card-favorite-form">
+                @csrf
+                <button type="submit" class="card-favorite-btn {{ $cardIsFavorite ? 'is-favorite' : '' }}"
+                    aria-label="{{ $cardIsFavorite ? 'Rimuovi dai preferiti' : 'Aggiungi ai preferiti' }}">
+                    <i class="{{ $cardIsFavorite ? 'fas' : 'far' }} fa-heart"></i>
+                </button>
+            </form>
+        @else
+            <a href="{{ route('login') }}" class="card-favorite-btn" aria-label="Accedi per aggiungere ai preferiti">
+                <i class="far fa-heart"></i>
+            </a>
+        @endauth
         <img src="{{ $article->images->isNotEmpty() ? $article->images->first()->getUrl(300, 300) : 'https://picsum.photos/500' }}"
             class="img-fluid article-image" alt="{{ $article->title }}">
     </div>
@@ -60,9 +74,19 @@
         <h3 class="fw-bold mb-3 mt-3">
             {{ $article->title }}
         </h3>
+        @if ($article->brand_model)
+            <p class="card-brand mb-2">{{ $article->brand_model }}</p>
+        @endif
         <h5 class="mb-4">
             € {{ $article->price }}
         </h5>
+        @if ($article->tags)
+            <div class="card-tags mb-4">
+                @foreach (collect(explode(' ', $article->tags))->filter()->take(3) as $tag)
+                    <span>{{ $tag }}</span>
+                @endforeach
+            </div>
+        @endif
         <div class="d-flex justify-content-center gap-3 flex-wrap">
             <a href="{{ route('article.show', compact('article')) }}" class="btn custom-btn-card">
 

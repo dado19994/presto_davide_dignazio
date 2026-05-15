@@ -21,6 +21,8 @@
             </div>
         </div>
 
+        <x-article-filters :action="route('article.searched')" />
+
         <div class="row g-4 justify-content-center">
             @forelse ($articles as $article)
                 <div class="col-12 col-md-6 col-lg-4 col-xl-3 d-flex justify-content-center">

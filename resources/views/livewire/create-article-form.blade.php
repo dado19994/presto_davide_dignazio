@@ -4,22 +4,40 @@
     $previewImage = collect($images)->first();
 @endphp
 
-<div class="container py-4">
+<div class="create-article-workbench">
     @if (session('success'))
         <div class="alert alert-dark text-center rounded-4 shadow-sm mb-4">
             {{ session('success') }}
         </div>
     @endif
 
+    <div class="create-workbench-hero glass-panel">
+        <div>
+            <p class="page-eyebrow mb-2">AI Listing Studio</p>
+            <h2>Costruisci un annuncio completo mentre l'AI ti assiste.</h2>
+            <p>Titolo, prezzo, categoria, descrizione e tag vengono aggiornati nella preview in tempo reale.</p>
+        </div>
+        <div class="create-step-strip">
+            <span class="{{ $title ? 'is-done' : '' }}"><i class="fas fa-heading"></i> Titolo</span>
+            <span class="{{ $category ? 'is-done' : '' }}"><i class="fas fa-layer-group"></i> Categoria</span>
+            <span class="{{ $description ? 'is-done' : '' }}"><i class="fas fa-align-left"></i> Testo</span>
+            <span class="{{ count($images) ? 'is-done' : '' }}"><i class="fas fa-images"></i> Foto</span>
+        </div>
+    </div>
+
     <form wire:submit.prevent="save">
         <div class="row g-4 align-items-start">
             <div class="col-12 col-xl-8">
                 <div class="row g-4">
                     <div class="col-12 col-lg-6">
-                        <div class="card-custom create-article-panel p-4 p-md-5 h-100">
-                            <h2 class="h3 text-center fw-bold mb-4">
-                                Dati principali
-                            </h2>
+                        <div class="card-custom create-article-panel create-form-panel p-4 h-100">
+                            <div class="create-panel-heading">
+                                <span>01</span>
+                                <div>
+                                    <h2>Dati principali</h2>
+                                    <p>Titolo, modello, prezzo e categoria.</p>
+                                </div>
+                            </div>
 
                             <div class="mb-4">
                                 <label for="title" class="form-label fw-bold">
@@ -34,6 +52,58 @@
                                     <p class="fst-italic text-danger mt-2 mb-0">{{ $message }}</p>
                                 @enderror
                             </div>
+
+                            <div class="mb-4">
+                                <label for="brand_model" class="form-label fw-bold">
+                                    Marca o modello
+                                </label>
+
+                                <input type="text"
+                                    class="form-control custom-input @error('brand_model') is-invalid @enderror"
+                                    placeholder="Es: Apple MacBook Air M3" id="brand_model" wire:model.live="brand_model">
+
+                                @error('brand_model')
+                                    <p class="fst-italic text-danger mt-2 mb-0">{{ $message }}</p>
+                                @enderror
+                            </div>
+
+                            @if (!empty($aiSuggestions))
+                                <div class="ai-writing-coach mb-4">
+                                    <div class="d-flex align-items-center justify-content-between gap-3 flex-wrap mb-3">
+                                        <div>
+                                            <span class="dashboard-kicker">AI creazione annuncio</span>
+                                            <strong>Consigli mentre scrivi</strong>
+                                        </div>
+                                        @if (!empty($aiSuggestions['category_name']))
+                                            <button type="button" class="btn btn-sm custom-btn-outline"
+                                                wire:click="applySuggestedCategory">
+                                                Categoria: {{ $aiSuggestions['category_name'] }}
+                                            </button>
+                                        @endif
+                                    </div>
+
+                                    <div class="ai-writing-actions">
+                                        @if (!empty($aiSuggestions['brand_model']) && empty($brand_model))
+                                            <button type="button" wire:click="applySuggestedBrandModel">
+                                                <i class="fas fa-wand-magic-sparkles"></i>
+                                                Usa marca/modello
+                                            </button>
+                                        @endif
+                                        <button type="button" wire:click="applySuggestedTitle">
+                                            <i class="fas fa-heading"></i>
+                                            Migliora titolo
+                                        </button>
+                                        <button type="button" wire:click="applySuggestedDescription">
+                                            <i class="fas fa-align-left"></i>
+                                            Genera descrizione
+                                        </button>
+                                        <button type="button" wire:click="applySuggestedTags">
+                                            <i class="fas fa-hashtag"></i>
+                                            Aggiungi tag
+                                        </button>
+                                    </div>
+                                </div>
+                            @endif
 
                             <div class="mb-4">
                                 <label for="price" class="form-label fw-bold">
@@ -77,6 +147,19 @@
                                 </select>
 
                                 @error('category')
+                                    <p class="fst-italic text-danger mt-2 mb-0">{{ $message }}</p>
+                                @enderror
+                            </div>
+
+                            <div class="mb-3 mt-4">
+                                <label for="tags" class="form-label fw-bold">
+                                    Tag
+                                </label>
+                                <input type="text" id="tags" wire:model.live="tags"
+                                    class="form-control custom-input @error('tags') is-invalid @enderror"
+                                    placeholder="#iphone #smartphone #apple">
+                                <p class="text-secondary small mt-2 mb-0">Usali come sui social: aiutano ricerca e suggerimenti.</p>
+                                @error('tags')
                                     <p class="fst-italic text-danger mt-2 mb-0">{{ $message }}</p>
                                 @enderror
                             </div>
@@ -138,10 +221,14 @@
                     </div>
 
                     <div class="col-12 col-lg-6">
-                        <div class="card-custom create-article-panel p-4 p-md-5 h-100">
-                            <h2 class="h3 text-center fw-bold mb-4">
-                                Descrizione
-                            </h2>
+                        <div class="card-custom create-article-panel create-form-panel p-4 h-100">
+                            <div class="create-panel-heading">
+                                <span>02</span>
+                                <div>
+                                    <h2>Descrizione</h2>
+                                    <p>Rendi chiaro cosa vendi e perché è interessante.</p>
+                                </div>
+                            </div>
 
                             <label for="description" class="form-label fw-bold">
                                 Descrizione
@@ -161,6 +248,11 @@
 
             <div class="col-12 col-xl-4">
                 <div class="card-custom article-card create-preview-card mx-auto shadow p-4">
+                    <div class="create-preview-top">
+                        <span class="article-ai-badge">
+                            <i class="fas fa-eye"></i> Anteprima live
+                        </span>
+                    </div>
                     <div class="article-card-media text-center mb-4 overflow-hidden rounded-4">
                         <img src="{{ $previewImage ? $previewImage->temporaryUrl() : 'https://picsum.photos/600' }}"
                             class="img-fluid preview-image w-100" alt="Anteprima articolo">
@@ -175,6 +267,10 @@
                             {{ $title ?: 'Titolo articolo' }}
                         </h3>
 
+                        @if ($brand_model)
+                            <p class="preview-brand mb-2">{{ $brand_model }}</p>
+                        @endif
+
                         <h5 class="text-secondary mb-3">
                             € {{ $price ?: '0.00' }}
                         </h5>
@@ -182,6 +278,14 @@
                         <p class="preview-description mb-4">
                             {{ $description ?: 'La descrizione apparira qui mentre scrivi.' }}
                         </p>
+
+                        @if ($tags)
+                            <div class="preview-tags mb-4">
+                                @foreach (collect(explode(' ', $tags))->filter()->take(6) as $tag)
+                                    <span>{{ $tag }}</span>
+                                @endforeach
+                            </div>
+                        @endif
 
                         <button type="submit" class="btn btn-dark custom-btn-card px-4 w-100">
                             Crea articolo

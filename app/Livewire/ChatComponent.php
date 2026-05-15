@@ -35,6 +35,11 @@ class ChatComponent extends Component
             })
             ->orderBy('created_at', 'asc')
             ->get();
+
+        Message::where('article_id', $this->article->id)
+            ->where('receiver_id', Auth::id())
+            ->where('read', false)
+            ->update(['read' => true]);
     }
 
     public function sendMessage()
@@ -52,6 +57,11 @@ class ChatComponent extends Component
 
         $this->messageContent = '';
         $this->loadMessages();
+    }
+
+    public function useQuickMessage(string $message): void
+    {
+        $this->messageContent = $message;
     }
 
     public function render()

@@ -6,7 +6,6 @@
 @import './layout/footer.css';
 @import './pages/home.css';
 @import './components/ui.css';
-@import './pages/article-detail.css';
 @import './pages/ai-coach.css';
 @import './pages/marketplace.css';
 @import './pages/category-scenes.css';
@@ -14,5 +13,6 @@
 @import './pages/revisor.css';
 @import './components/assistant-pagination.css';
 @import './pages/commerce.css';
+@import './pages/article-detail.css';
 @import './pages/dashboard.css';
 @import 'bootstrap-icons';

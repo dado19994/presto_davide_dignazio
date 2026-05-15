@@ -85,9 +85,23 @@
                             <span class="fw-bold">Totale ordine</span>
                             <span class="fw-bold">€ {{ number_format($total, 2, ',', '.') }}</span>
                         </div>
-                        <a href="{{ route('article.show', $articles->first()) }}" class="btn custom-btn-card w-100 mt-4">
-                            Procedi dal dettaglio
-                        </a>
+                        @auth
+                            <form action="{{ route('cart.checkout') }}" method="POST" class="mt-4">
+                                @csrf
+                                <label for="payment_method" class="form-label small text-secondary">Metodo pagamento</label>
+                                <select id="payment_method" name="payment_method" class="form-select custom-input mb-3">
+                                    <option value="card">Carta</option>
+                                    <option value="paypal">PayPal</option>
+                                </select>
+                                <button type="submit" class="btn custom-btn-card w-100">
+                                    <i class="fas fa-lock me-2"></i>Acquista tutto
+                                </button>
+                            </form>
+                        @else
+                            <a href="{{ route('login') }}" class="btn custom-btn-card w-100 mt-4">
+                                Accedi per acquistare
+                            </a>
+                        @endauth
                         <div class="cart-ai-note mt-3">
                             <i class="fas fa-shield-halved"></i>
                             <span>AI Guard monitora segnali sospetti durante chat e pagamento.</span>

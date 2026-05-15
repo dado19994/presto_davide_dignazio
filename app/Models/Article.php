@@ -16,7 +16,9 @@ class Article extends Model
 
     protected $fillable = [
         'title',
+        'brand_model',
         'description',
+        'tags',
         'price',
         'category_id',
         'user_id',
@@ -51,7 +53,9 @@ class Article extends Model
         return [
             'id' => $this->id,
             'title' => $this->title,
+            'brand_model' => $this->brand_model,
             'description' => $this->description,
+            'tags' => $this->tags,
             'category' => $this->category?->name,
         ];
     }

@@ -55,3 +55,30 @@ window.addEventListener('load', () => {
         hero.classList.add('hero-visible');
     }, 200);
 });
+
+document.querySelectorAll('.navbar-search-collapsed').forEach((form) => {
+    const input = form.querySelector('input[type="search"]');
+    const button = form.querySelector('button[type="submit"]');
+
+    if (!input || !button) return;
+
+    if (input.value.trim().length > 0) {
+        form.classList.add('is-expanded');
+    }
+
+    button.addEventListener('click', (event) => {
+        const isExpanded = form.classList.contains('is-expanded') || input.value.trim().length > 0;
+
+        if (!isExpanded) {
+            event.preventDefault();
+            form.classList.add('is-expanded');
+            input.focus();
+        }
+    });
+
+    input.addEventListener('blur', () => {
+        if (input.value.trim().length === 0) {
+            form.classList.remove('is-expanded');
+        }
+    });
+});

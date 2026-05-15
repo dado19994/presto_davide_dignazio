@@ -45,6 +45,7 @@ Route::patch('/profilo', [ProfileController::class, 'update'])->middleware('auth
 Route::get('/ai-listing-coach', [AiListingCoachController::class, 'index'])->middleware('auth')->name('ai.coach');
 
 Route::get('/carrello', [CartController::class, 'index'])->name('cart.index');
+Route::post('/carrello/checkout', [CartController::class, 'checkout'])->name('cart.checkout');
 Route::post('/carrello/{article}', [CartController::class, 'store'])->name('cart.store');
 Route::delete('/carrello/{article}', [CartController::class, 'destroy'])->name('cart.destroy');
 Route::delete('/carrello', [CartController::class, 'clear'])->name('cart.clear');

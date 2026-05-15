@@ -162,9 +162,9 @@
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link {{ request()->routeIs('favorites.*') ? 'active' : '' }}"
-                            href="{{ route('favorites.index') }}">
-                            {{ __('ui.favorites') }}
+                        <a class="nav-link {{ request()->routeIs('article.featured') ? 'active' : '' }}"
+                            href="{{ route('article.featured') }}">
+                            In evidenza
                         </a>
                     </li>
 
@@ -191,6 +191,15 @@
                             {{ __('ui.hello') }}, {{ Auth::user()->name }}!
 
                         </a>
+
+                        @php
+                            $unreadMessages = \App\Models\Message::with(['sender', 'article'])
+                                ->where('receiver_id', Auth::id())
+                                ->where('read', false)
+                                ->latest()
+                                ->take(3)
+                                ->get();
+                        @endphp
 
                         <div class="dropdown-menu user-dropdown-menu">
                             <div class="user-dropdown-header">
@@ -271,6 +280,26 @@
                                 </a>
                             </div>
 
+                            <div class="user-dropdown-chat">
+                                <div class="user-dropdown-section-title">
+                                    <span>Chat</span>
+                                    <strong>{{ $unreadMessages->count() }}</strong>
+                                </div>
+                                @forelse ($unreadMessages as $message)
+                                    @if ($message->article)
+                                        <a href="{{ route('article.show', $message->article) }}" class="user-chat-link">
+                                            <i class="fas fa-comment-dots"></i>
+                                            <span>
+                                                <strong>{{ $message->sender?->name ?? 'Utente' }}</strong>
+                                                <small>{{ str($message->content)->limit(52) }}</small>
+                                            </span>
+                                        </a>
+                                    @endif
+                                @empty
+                                    <p class="user-chat-empty mb-0">Nessun nuovo messaggio.</p>
+                                @endforelse
+                            </div>
+
                             <div class="user-dropdown-quick">
                                 <a href="{{ route('seller.show', Auth::user()) }}">Profilo pubblico</a>
                                 <a href="{{ route('article.featured') }}">Annunci in evidenza</a>
@@ -333,14 +362,14 @@
                 </a>
 
                 {{-- SEARCH --}}
-                <form class="navbar-search" method="GET" action="{{ route('article.searched') }}">
+                <form class="navbar-search navbar-search-collapsed" method="GET" action="{{ route('article.searched') }}">
 
                     <div class="input-group bg-white rounded overflow-hidden border">
 
                         <input type="search" name="query" class="form-control border-0" placeholder="{{ __('ui.search') }}..."
                             value="{{ request('query') }}">
 
-                        <button class="btn border-0 bg-white px-3" type="submit">
+                        <button class="btn border-0 bg-white px-3" type="submit" aria-label="Cerca">
                             <i class="fas fa-magnifying-glass"></i>
                         </button>
 

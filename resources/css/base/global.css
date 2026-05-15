@@ -12,6 +12,19 @@ body {
     position: relative;
 }
 
+html,
+body {
+    max-width: 100%;
+    overflow-x: clip;
+}
+
+img,
+video,
+canvas,
+svg {
+    max-width: 100%;
+}
+
 /* effetto noise */
 
 .noise-overlay {
@@ -150,4 +163,3 @@ body::after {
 .section-shell {
     padding: 90px 0;
 }
-

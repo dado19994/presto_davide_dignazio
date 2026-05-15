@@ -38,6 +38,8 @@
             </div>
         @endif
 
+        <x-article-filters :action="route('article.index')" />
+
         <div class="row g-4 justify-content-center">
 
             @forelse ($articles as $article)

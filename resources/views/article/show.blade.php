@@ -9,48 +9,84 @@
 
     <section class="container section-shell article-detail-section">
         @if (session('success'))
-            <div class="alert alert-success border-0 rounded-4 shadow mb-4">
+            <div class="alert alert-success border-0 rounded-4 shadow mb-4 article-detail-alert">
                 {{ session('success') }}
             </div>
         @endif
 
-        <div class="article-detail-card shadow">
-            <div class="row g-4 g-xl-5 align-items-start">
+        <div class="article-detail-card product-detail-card shadow">
+            <span class="product-particle particle-one"></span>
+            <span class="product-particle particle-two"></span>
+            <span class="product-particle particle-three"></span>
+
+            <div class="row g-4 g-xl-5 align-items-stretch">
 
                 {{-- CAROSELLO --}}
                 <div class="col-12 col-lg-6">
-                    @if ($article->images->count() > 0)
-                        <div id="articleCarousel" class="carousel slide article-detail-carousel" data-bs-ride="carousel">
+                    <div class="product-gallery-column">
+                        @if ($article->images->count() > 0)
+                            <div id="articleCarousel" class="carousel slide article-detail-carousel product-gallery-main" data-bs-ride="carousel">
 
-                            <div class="carousel-inner">
-                                @foreach ($article->images as $key => $image)
-                                    <div class="carousel-item @if ($loop->first) active @endif">
+                                <div class="gallery-overlay-badges">
+                                    <span class="article-ai-badge animated-ai-badge">
+                                        <i class="fas fa-check-circle"></i> AI Verified
+                                    </span>
+                                    @if ($article->is_highlighted)
+                                        <span class="detail-hot-badge">
+                                            <i class="fas fa-bolt"></i> In evidenza
+                                        </span>
+                                    @endif
+                                </div>
 
-                                        <img src="{{ $image->getUrl() }}"
-                                            class="d-block w-100 article-detail-image shadow"
-                                            alt="Immagine {{ $key + 1 }} dell'articolo {{ $article->title }}">
+                                <div class="carousel-inner">
+                                    @foreach ($article->images as $key => $image)
+                                        <div class="carousel-item @if ($loop->first) active @endif">
 
-                                    </div>
-                                @endforeach
+                                            <img src="{{ $image->getUrl() }}"
+                                                class="d-block w-100 article-detail-image shadow"
+                                                alt="Immagine {{ $key + 1 }} dell'articolo {{ $article->title }}">
+
+                                        </div>
+                                    @endforeach
+                                </div>
+
+                                <button class="carousel-control-prev" type="button" data-bs-target="#articleCarousel"
+                                    data-bs-slide="prev">
+                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                    <span class="visually-hidden">Previous</span>
+                                </button>
+
+                                <button class="carousel-control-next" type="button" data-bs-target="#articleCarousel"
+                                    data-bs-slide="next">
+                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                    <span class="visually-hidden">Next</span>
+                                </button>
+
                             </div>
 
-                            <button class="carousel-control-prev" type="button" data-bs-target="#articleCarousel"
-                                data-bs-slide="prev">
-                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                <span class="visually-hidden">Previous</span>
-                            </button>
+                            @if ($article->images->count() > 1)
+                                <div class="product-thumbnails">
+                                    @foreach ($article->images as $key => $image)
+                                        <button type="button" data-bs-target="#articleCarousel" data-bs-slide-to="{{ $key }}"
+                                            class="@if ($loop->first) active @endif" aria-label="Mostra immagine {{ $key + 1 }}">
+                                            <img src="{{ $image->getUrl() }}" alt="Miniatura {{ $key + 1 }}">
+                                        </button>
+                                    @endforeach
+                                </div>
+                            @endif
+                        @else
+                            <div class="product-gallery-main product-gallery-placeholder">
+                                <img src="https://picsum.photos/800" alt="Nessuna foto inserita"
+                                    class="img-fluid article-detail-image shadow">
+                            </div>
+                        @endif
 
-                            <button class="carousel-control-next" type="button" data-bs-target="#articleCarousel"
-                                data-bs-slide="next">
-                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                <span class="visually-hidden">Next</span>
-                            </button>
-
+                        <div class="gallery-trust-row">
+                            <div><i class="fas fa-sparkles"></i><span>AI Verified</span></div>
+                            <div><i class="fas fa-truck-fast"></i><span>Consegna rapida</span></div>
+                            <div><i class="fas fa-heart"></i><span>{{ $productSignals['favorite_count'] }} preferiti</span></div>
                         </div>
-                    @else
-                        <img src="https://picsum.photos/600" alt="Nessuna foto inserita"
-                            class="img-fluid article-detail-image shadow">
-                    @endif
+                    </div>
                 </div>
 
                 {{-- CONTENUTO --}}
@@ -70,17 +106,33 @@
                             </span>
                         </div>
 
-                        <h2 class="fw-bold mb-3">
+                        <h2 class="product-title fw-bold mb-3">
                             {{ $article->title }}
                         </h2>
 
-                        <div class="article-detail-price mb-4">
+                        @if ($article->brand_model)
+                            <p class="article-brand-model mb-3">
+                                <i class="fas fa-certificate me-2"></i>{{ $article->brand_model }}
+                            </p>
+                        @endif
+
+                        <div class="article-detail-price product-price mb-3">
                             <span>€ {{ number_format($article->price, 2, ',', '.') }}</span>
                         </div>
 
-                        <div class="article-detail-description mb-4">
-                            <h5 class="fw-bold mb-2">Descrizione</h5>
-                            <p class="mb-0">{{ $article->description }}</p>
+                        <div class="product-micro-info mb-4">
+                            <span><i class="fas fa-check"></i> Disponibile</span>
+                            <span><i class="fas fa-truck-fast"></i> Consegna 24/48h</span>
+                            <span><i class="fas fa-star"></i> {{ $sellerTrust['rating'] ?? 'N/D' }} recensioni</span>
+                            <span><i class="fas fa-fire"></i> {{ $productSignals['active_viewers'] }} utenti interessati</span>
+                        </div>
+
+                        <div class="ai-match-panel mb-4">
+                            <div>
+                                <span>AI Match Score</span>
+                                <strong>Compatibilità con te: {{ $productSignals['match_score'] }}%</strong>
+                            </div>
+                            <i class="fas fa-microchip"></i>
                         </div>
 
                         <div class="article-signal-grid mb-4">
@@ -107,7 +159,7 @@
                             </a>
                         @endif
 
-                        <div class="article-actions action-panel d-flex gap-2 gap-md-3 flex-wrap mb-4">
+                        <div class="article-actions action-panel d-flex align-items-center gap-3 flex-wrap mb-4">
                             <livewire:checkout-component :article="$article" />
 
                             <form action="{{ route('cart.store', $article) }}" method="POST">
@@ -133,17 +185,26 @@
                             @endauth
                         </div>
 
-                        <div class="d-flex justify-content-center justify-content-lg-start gap-3 flex-wrap mb-4">
-                            <a href="{{ route('article.index') }}" class="btn btn-dark custom-btn-card px-4">
-                                Torna agli articoli
-                            </a>
+                        <div class="trust-panels mb-4">
+                            <div class="trust-panel">
+                                <h3><i class="fas fa-user-shield"></i> Fiducia venditore</h3>
+                                <ul>
+                                    <li><i class="fas fa-check"></i> Utente verificato</li>
+                                    <li><i class="fas fa-star"></i> {{ $sellerTrust['rating'] ?? 'N/D' }} su {{ $sellerTrust['reviews'] }} recensioni</li>
+                                    <li><i class="fas fa-box"></i> {{ $sellerTrust['sales'] }} vendite concluse</li>
+                                    <li><i class="fas fa-clock"></i> Attivo da {{ $sellerTrust['member_since'] }}</li>
+                                </ul>
+                            </div>
 
-                            @if ($article->category)
-                                <a href="{{ route('byCategory', ['category' => $article->category]) }}"
-                                    class="btn btn-outline-dark custom-btn-outline px-4">
-                                    Altri in {{ $article->category->name }}
-                                </a>
-                            @endif
+                            <div class="trust-panel">
+                                <h3><i class="fas fa-shield-halved"></i> Sicurezza acquisto</h3>
+                                <ul>
+                                    <li><i class="fas fa-lock"></i> Pagamento protetto</li>
+                                    <li><i class="fas fa-shield-heart"></i> Protezione acquirente</li>
+                                    <li><i class="fas fa-rotate-left"></i> Reso disponibile</li>
+                                    <li><i class="fas fa-comments"></i> Trattativa privata</li>
+                                </ul>
+                            </div>
                         </div>
 
                         {{-- CHAT INTEGRATION --}}
@@ -157,12 +218,36 @@
             </div>
         </div>
 
+        <section class="product-description-section">
+            <div class="product-description-card">
+                <div>
+                    <p class="page-eyebrow mb-2">Dettagli prodotto</p>
+                    <h2>Descrizione prodotto</h2>
+                    <p>{{ $article->description }}</p>
+                </div>
+                <div class="product-spec-list">
+                    <div><i class="fas fa-tag"></i><span>Categoria</span><strong>{{ $article->category?->name ?? 'Non indicata' }}</strong></div>
+                    <div><i class="fas fa-certificate"></i><span>Marca/modello</span><strong>{{ $article->brand_model ?: 'Non indicato' }}</strong></div>
+                    <div><i class="fas fa-camera"></i><span>Foto disponibili</span><strong>{{ $article->images->count() }}</strong></div>
+                    <div><i class="fas fa-heart"></i><span>Preferiti</span><strong>{{ $productSignals['favorite_count'] }}</strong></div>
+                </div>
+
+                @if ($article->tags)
+                    <div class="detail-tags mt-4">
+                        @foreach (collect(explode(' ', $article->tags))->filter()->take(8) as $tag)
+                            <a href="{{ route('article.searched', ['query' => $tag, 'tag' => $tag]) }}">{{ $tag }}</a>
+                        @endforeach
+                    </div>
+                @endif
+            </div>
+        </section>
+
         @if ($recommendedArticles->isNotEmpty())
             <section class="recommended-section w-100 mt-5">
                 <div class="recommended-heading d-flex flex-column flex-md-row justify-content-between align-items-md-end gap-3 mb-4">
                     <div>
-                        <p class="page-eyebrow mb-2">Consigliati dall'AI</p>
-                        <h2 class="fw-bold mb-0">Potrebbero interessarti</h2>
+                        <p class="page-eyebrow mb-2">Consigliati per te dall'AI</p>
+                        <h2 class="fw-bold mb-0">Scelti perché simili a questo articolo</h2>
                     </div>
 
                     @if ($article->category)
@@ -189,6 +274,28 @@
                 {{-- @livewire('user-review-component', ['user' => $article->user]) --}}
                 <livewire:user-review-component :user="$article->user" />
             </div>
+        </div>
+
+        <div class="mobile-product-cta">
+            @auth
+                <form action="{{ route('favorites.toggle', $article) }}" method="POST">
+                    @csrf
+                    <button type="submit" class="mobile-heart-btn {{ $isFavorite ? 'is-favorite' : '' }}" aria-label="Preferiti">
+                        <i class="{{ $isFavorite ? 'fas' : 'far' }} fa-heart"></i>
+                    </button>
+                </form>
+            @else
+                <a href="{{ route('login') }}" class="mobile-heart-btn" aria-label="Preferiti">
+                    <i class="far fa-heart"></i>
+                </a>
+            @endauth
+            <form action="{{ route('cart.store', $article) }}" method="POST">
+                @csrf
+                <button type="submit" class="btn custom-btn-outline">Carrello</button>
+            </form>
+            <button type="button" class="btn custom-btn-card" data-bs-toggle="modal" data-bs-target="#checkoutModal-{{ $article->id }}">
+                Acquista
+            </button>
         </div>
     </section>
 </x-layout>
