@@ -16,30 +16,35 @@ window.addEventListener('scroll', () => {
 });
 
 const revealElements=document.querySelectorAll(
-    '.article-card, .glass-panel, .create-article-panel, .revisor-card, .empty-card'
+    '.article-card, .glass-panel, .create-article-panel, .revisor-card, .empty-card, .coach-card, .coach-summary-card, .policy-card'
 );
 
-const revealObserver = new IntersectionObserver((entries) => {
-    entries.forEach((entry, index) => {
+if ('IntersectionObserver' in window) {
+    const revealObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry, index) => {
 
-        if (entry.isIntersecting) {
+            if (entry.isIntersecting) {
 
-            setTimeout(() => {
-                entry.target.classList.add('reveal-active');
-            }, index * 60); // effetto cascata
+                setTimeout(() => {
+                    entry.target.classList.add('reveal-active');
+                }, index * 60);
 
-        }
+                revealObserver.unobserve(entry.target);
+            }
+
+        });
+    }, { threshold: 0.15 });
+
+    revealElements.forEach(el=>{
+
+        el.classList.add('reveal-start');
+
+        revealObserver.observe(el);
 
     });
-}, { threshold: 0.15 });
-
-revealElements.forEach(el=>{
-
-    el.classList.add('reveal-start');
-
-    revealObserver.observe(el);
-
-});
+} else {
+    revealElements.forEach(el=>el.classList.add('reveal-active'));
+}
 
 window.addEventListener('load', () => {
     const hero = document.querySelector('.hero-title');

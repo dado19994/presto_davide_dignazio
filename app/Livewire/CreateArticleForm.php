@@ -73,6 +73,7 @@ class CreateArticleForm extends Component
         $this->price = '';
         $this->category = '';
         $this->images = [];
+        $this->temporary_images = null;
     }
 
     public function updatedTitle($value)
@@ -101,6 +102,7 @@ class CreateArticleForm extends Component
     {
         if (in_array($key, array_keys($this->images))){
             unset($this->images[$key]);
+            $this->images = array_values($this->images);
         }
     }
 

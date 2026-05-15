@@ -11,7 +11,7 @@ class CategoriesSeeder extends Seeder
     public $categories=[
         'Elettronica',
         'Abbigliamento',
-        'Saute e Bellezza',
+        'Salute e Bellezza',
         'Casa e Giardino',
         'Giocattoli',
         'Sport',

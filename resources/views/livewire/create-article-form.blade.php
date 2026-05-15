@@ -1,6 +1,7 @@
 @php
     $formCategories = collect($categories ?? []);
     $selectedCategory = $formCategories->firstWhere('id', $category);
+    $previewImage = collect($images)->first();
 @endphp
 
 <div class="container py-4">
@@ -79,42 +80,60 @@
                                     <p class="fst-italic text-danger mt-2 mb-0">{{ $message }}</p>
                                 @enderror
                             </div>
-                            {{-- // Sezione immagini --}}
-                             <div class="mb-3 mt-4">
-                                <label for="" class="form-label fw-bold">Inserisci immagine:</label>
-                            <input type="file"
-                                class="form-control custom-input @error('images') is-invalid @enderror"
-                                wire:model.live="temporary_images" multiple placeholder="Img/">
-                            @error('temporary_images.*')
-                                <p class="fst-italic text-danger">{{ $message }}</p>
-                            @enderror
-                            @error('temporary_images')
-                                <p class="fst-italic text-danger">{{ $message }}</p>
-                            @enderror
-                            <div>
+                            <div class="mb-3 mt-4">
+                                <label for="temporary_images" class="form-label fw-bold">
+                                    Immagini articolo
+                                </label>
+
+                                <div class="upload-dropzone @error('temporary_images') is-invalid @enderror @error('temporary_images.*') is-invalid @enderror">
+                                    <input type="file" id="temporary_images" class="upload-input"
+                                        wire:model.live="temporary_images" multiple accept="image/*">
+
+                                    <label for="temporary_images" class="upload-trigger">
+                                        <span class="upload-icon">
+                                            <i class="fas fa-cloud-arrow-up"></i>
+                                        </span>
+                                        <span class="upload-copy">
+                                            <strong>Scegli immagini</strong>
+                                            <small>PNG, JPG o WEBP fino a 1MB. Puoi caricarne massimo 6.</small>
+                                        </span>
+                                    </label>
+
+                                    <div wire:loading wire:target="temporary_images" class="upload-loading">
+                                        Caricamento immagini...
+                                    </div>
+                                </div>
+
+                                @error('temporary_images.*')
+                                    <p class="fst-italic text-danger mt-2 mb-0">{{ $message }}</p>
+                                @enderror
+                                @error('temporary_images')
+                                    <p class="fst-italic text-danger mt-2 mb-0">{{ $message }}</p>
+                                @enderror
+
                                 @if (!empty($images))
-                                    <div class="row">
-                                        <div class="col-12">
-                                            <p class="fw-bold mb-2">Immagini caricate:</p>
-                                            <div class="row border border-4 border-success rounded shadow py-4">
-                                                @foreach ($images as $key => $image)
-                                                    <div class="col d-flex flex-column aligns-items-center my-3">
-                                                        <div class="img-preview mx-auto shadow rounded"
-                                                            style="background-image: url({{ $image->temporaryUrl() }})">
-                                                        </div>
-                                                        <button type="button" class="btn btn-danger mt-2"
-                                                            wire:click="removeImage({{ $key }})">
-                                                            X
-                                                        </button>
+                                    <div class="uploaded-images mt-4">
+                                        <p class="fw-bold mb-3">
+                                            Immagini caricate: {{ count($images) }}
+                                        </p>
+
+                                        <div class="uploaded-images-grid">
+                                            @foreach ($images as $key => $image)
+                                                <div class="uploaded-image-item">
+                                                    <div class="img-preview"
+                                                        style="background-image: url({{ $image->temporaryUrl() }})">
                                                     </div>
-                                                @endforeach
-                                            </div>
+                                                    <button type="button" class="btn remove-image-btn"
+                                                        wire:click="removeImage({{ $key }})"
+                                                        aria-label="Rimuovi immagine">
+                                                        <i class="fas fa-xmark"></i>
+                                                    </button>
+                                                </div>
+                                            @endforeach
                                         </div>
                                     </div>
-
                                 @endif
                             </div>
-                        </div>
                         </div>
                     </div>
 
@@ -142,9 +161,9 @@
 
             <div class="col-12 col-xl-4">
                 <div class="card-custom article-card create-preview-card mx-auto shadow p-4">
-                    <div class="text-center mb-4">
-                        <img src="https://picsum.photos/600" class="img-fluid preview-image w-100"
-                            alt="Anteprima articolo">
+                    <div class="article-card-media text-center mb-4 overflow-hidden rounded-4">
+                        <img src="{{ $previewImage ? $previewImage->temporaryUrl() : 'https://picsum.photos/600' }}"
+                            class="img-fluid preview-image w-100" alt="Anteprima articolo">
                     </div>
 
                     <div class="text-center">

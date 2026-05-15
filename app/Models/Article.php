@@ -19,7 +19,8 @@ class Article extends Model
         'description',
         'price',
         'category_id',
-        'user_id'
+        'user_id',
+        'is_highlighted',
     ];
 
     public function user(): BelongsTo
@@ -55,7 +56,13 @@ class Article extends Model
         ];
     }
 
-    public function images(): HasMany{
+    public function images(): HasMany
+    {
         return $this->hasMany(Image::class);
+    }
+
+    public function favorites(): HasMany
+    {
+        return $this->hasMany(Favorite::class);
     }
 }

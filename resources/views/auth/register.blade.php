@@ -35,16 +35,31 @@
 
                     @csrf
 
-                    <!-- Nome -->
-                    <div class="mb-4">
+                    <div class="row g-3 mb-4">
+                        <!-- Nome -->
+                        <div class="col-12 col-md-6">
 
-                        <label for="name" class="form-label fw-bold">
-                            Nome
-                        </label>
+                            <label for="name" class="form-label fw-bold">
+                                Nome
+                            </label>
 
-                        <input type="text" class="form-control custom-input" id="name" name="name"
-                            placeholder="Inserisci il tuo nome">
+                            <input type="text" class="form-control custom-input @error('name') is-invalid @enderror"
+                                id="name" name="name" value="{{ old('name') }}" placeholder="Inserisci il tuo nome">
 
+                        </div>
+
+                        <!-- Cognome -->
+                        <div class="col-12 col-md-6">
+
+                            <label for="surname" class="form-label fw-bold">
+                                Cognome
+                            </label>
+
+                            <input type="text" class="form-control custom-input @error('surname') is-invalid @enderror"
+                                id="surname" name="surname" value="{{ old('surname') }}"
+                                placeholder="Inserisci il tuo cognome">
+
+                        </div>
                     </div>
 
                     <!-- Email -->
@@ -55,7 +70,7 @@
                         </label>
 
                         <input type="email" class="form-control custom-input @error('email') is-invalid @enderror" id="loginEmail" name="email"
-                            placeholder="esempio@email.com">
+                            value="{{ old('email') }}" placeholder="esempio@email.com">
 
                     </div>
 

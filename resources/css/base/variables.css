@@ -16,8 +16,10 @@
     --transition: .35s ease;
     --primary-orange: #F97316;
     --primary-orange-hover: #EA580C;
+
     --dark-bg: #0F172A;
     --dark-card: #111827;
+
     --text-light: #F8FAFC;
     --text-muted: #94A3B8;
 }

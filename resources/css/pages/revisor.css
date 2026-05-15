@@ -1,0 +1,57 @@
+/* REVISOR */
+
+.rating-box {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(10px);
+    border-radius: 16px;
+}
+
+.rating-box .text-uppercase {
+    color: var(--muted);
+    letter-spacing: 1px;
+}
+
+.rating-box .adult,
+.rating-box .violence,
+.rating-box .spoof,
+.rating-box .racy,
+.rating-box .medical {
+    font-size: 1.2rem;
+    font-weight: 900;
+}
+
+/* centratura generale blocchi revisore */
+.revisor-gallery .glass-panel {
+    text-align: center;
+}
+
+/* FOOTER LOGO */
+
+.footer-logo {
+    width: 140px;
+    height: auto;
+    object-fit: contain;
+    transition: var(--transition);
+}
+
+.footer-logo:hover {
+    transform: scale(1.05);
+}
+
+/* navbar logo */
+
+.navbar-logo {
+    height: 40px;
+    width: auto;
+    object-fit: contain;
+    transition: var(--transition);
+}
+
+.navbar-brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+

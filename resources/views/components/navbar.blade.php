@@ -161,6 +161,13 @@
                         </a>
                     </li>
 
+                    <li class="nav-item">
+                        <a class="nav-link {{ request()->routeIs('favorites.*') ? 'active' : '' }}"
+                            href="{{ route('favorites.index') }}">
+                            {{ __('ui.favorites') }}
+                        </a>
+                    </li>
+
                     @if (Auth::user()->is_revisor)
                         <li class="nav-item">
                             <a class="nav-link navbar-revisor-link {{ request()->routeIs('revisor.*') ? 'active' : '' }}"
@@ -176,7 +183,7 @@
                         </li>
                     @endif
 
-                    <li class="nav-item dropdown">
+                    <li class="nav-item dropdown user-menu">
 
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                             aria-expanded="false">
@@ -185,30 +192,104 @@
 
                         </a>
 
-                        <ul class="dropdown-menu">
+                        <div class="dropdown-menu user-dropdown-menu">
+                            <div class="user-dropdown-header">
+                                <div class="user-dropdown-avatar">
+                                    @if (Auth::user()->avatarUrl())
+                                        <img src="{{ Auth::user()->avatarUrl() }}" alt="{{ Auth::user()->name }}">
+                                    @else
+                                        {{ mb_strtoupper(mb_substr(Auth::user()->name, 0, 1)) }}
+                                    @endif
+                                </div>
+                                <div>
+                                    <strong>{{ trim(Auth::user()->name . ' ' . (Auth::user()->surname ?? '')) }}</strong>
+                                    <span>{{ Auth::user()->email }}</span>
+                                </div>
+                            </div>
 
-                            <li>
-                                <a class="dropdown-item" href="{{ route('user.dashboard') }}">
-                                    Dashboard AI
+                            <form class="user-dropdown-search" method="GET" action="{{ route('article.searched') }}">
+                                <input type="search" name="query" placeholder="Cerca subito un articolo..."
+                                    value="{{ request('query') }}">
+                                <button type="submit" aria-label="Cerca">
+                                    <i class="fas fa-magnifying-glass"></i>
+                                </button>
+                            </form>
+
+                            <div class="user-dropdown-grid">
+                                <a class="user-dropdown-link {{ request()->routeIs('user.dashboard') ? 'active' : '' }}"
+                                    href="{{ route('user.dashboard') }}">
+                                    <i class="fas fa-chart-line"></i>
+                                    <span>
+                                        <strong>Dashboard</strong>
+                                        <small>Vendite, performance e annunci</small>
+                                    </span>
                                 </a>
-                            </li>
 
-                            <li>
-                                <hr class="dropdown-divider">
-                            </li>
-
-                            <li>
-                                <a class="dropdown-item" href="#"
-                                    onclick="event.preventDefault(); document.querySelector('#form-logout').submit();">
-                                    {{ __('ui.logout') }}
+                                <a class="user-dropdown-link {{ request()->routeIs('user.profile') ? 'active' : '' }}"
+                                    href="{{ route('user.profile') }}">
+                                    <i class="fas fa-user"></i>
+                                    <span>
+                                        <strong>Profilo utente</strong>
+                                        <small>Bio, avatar e zona</small>
+                                    </span>
                                 </a>
-                            </li>
+
+                                <a class="user-dropdown-link {{ request()->routeIs('ai.coach') ? 'active' : '' }}"
+                                    href="{{ route('ai.coach') }}">
+                                    <i class="fas fa-microchip"></i>
+                                    <span>
+                                        <strong>AI Listing Coach</strong>
+                                        <small>Score e consigli annuncio</small>
+                                    </span>
+                                </a>
+
+                                <a class="user-dropdown-link {{ request()->routeIs('create.article') ? 'active' : '' }}"
+                                    href="{{ route('create.article') }}">
+                                    <i class="fas fa-plus"></i>
+                                    <span>
+                                        <strong>Nuovo annuncio</strong>
+                                        <small>Pubblica con anteprima live</small>
+                                    </span>
+                                </a>
+
+                                <a class="user-dropdown-link {{ request()->routeIs('favorites.*') ? 'active' : '' }}"
+                                    href="{{ route('favorites.index') }}">
+                                    <i class="fas fa-heart"></i>
+                                    <span>
+                                        <strong>Preferiti</strong>
+                                        <small>Articoli salvati</small>
+                                    </span>
+                                </a>
+
+                                <a class="user-dropdown-link {{ request()->routeIs('cart.*') ? 'active' : '' }}"
+                                    href="{{ route('cart.index') }}">
+                                    <i class="fas fa-bag-shopping"></i>
+                                    <span>
+                                        <strong>Carrello</strong>
+                                        <small>{{ count(session('cart', [])) }} articoli</small>
+                                    </span>
+                                </a>
+                            </div>
+
+                            <div class="user-dropdown-quick">
+                                <a href="{{ route('seller.show', Auth::user()) }}">Profilo pubblico</a>
+                                <a href="{{ route('article.featured') }}">Annunci in evidenza</a>
+                                @if (Auth::user()->is_revisor)
+                                    <a href="{{ route('revisor.index') }}">Area revisore</a>
+                                @endif
+                            </div>
+
+                            <button class="user-dropdown-logout" type="button"
+                                onclick="event.preventDefault(); document.querySelector('#form-logout').submit();">
+                                <i class="fas fa-arrow-right-from-bracket"></i>
+                                {{ __('ui.logout') }}
+                            </button>
 
                             <form action="{{ route('logout') }}" method="POST" class="d-none" id="form-logout">
                                 @csrf
                             </form>
 
-                        </ul>
+                        </div>
                     </li>
                 @else
                     <li class="nav-item dropdown">
@@ -216,7 +297,7 @@
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                             aria-expanded="false">
 
-                            {{ __('ui.hello') }}, utente!
+                            {{ __('ui.hello') }}, {{ __('ui.guest') }}!
 
                         </a>
 
@@ -241,25 +322,37 @@
 
             </ul>
 
-            {{-- SEARCH --}}
-            <form class="d-flex ms-lg-3 col-12 col-lg-3" method="GET" action="{{ route('article.searched') }}">
+            <div class="navbar-actions">
+                <a href="{{ route('cart.index') }}"
+                    class="nav-link cart-nav-link {{ request()->routeIs('cart.*') ? 'active' : '' }}">
+                    <i class="fas fa-bag-shopping"></i>
+                    <span>{{ __('ui.cart') }}</span>
+                    @if (session('cart') && count(session('cart')) > 0)
+                        <span class="navbar-revisor-badge">{{ count(session('cart')) }}</span>
+                    @endif
+                </a>
 
-                <div class="input-group bg-white rounded overflow-hidden border">
+                {{-- SEARCH --}}
+                <form class="navbar-search" method="GET" action="{{ route('article.searched') }}">
 
-                    <input type="search" name="query" class="form-control border-0" placeholder="Cerca..."
-                        value="{{ request('query') }}">
+                    <div class="input-group bg-white rounded overflow-hidden border">
 
-                    <button class="btn border-0 bg-white px-3" type="submit">
-                        🔍
-                    </button>
+                        <input type="search" name="query" class="form-control border-0" placeholder="{{ __('ui.search') }}..."
+                            value="{{ request('query') }}">
 
+                        <button class="btn border-0 bg-white px-3" type="submit">
+                            <i class="fas fa-magnifying-glass"></i>
+                        </button>
+
+                    </div>
+                </form>
+
+                <div class="navbar-locales">
+                    <x-_locale lang="it" />
+                    <x-_locale lang="uk" />
+                    <x-_locale lang="es" />
                 </div>
-            </form>
-
-            {{-- LANGUAGE SWITCHER --}}
-            <x-_locale lang="it" />
-            <x-_locale lang="uk" />
-            <x-_locale lang="es" />
+            </div>
 
         </div>
     </div>

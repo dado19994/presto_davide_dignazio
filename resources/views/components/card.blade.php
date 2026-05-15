@@ -41,7 +41,13 @@
 
 {{-- Opzione 2 --}}
 <div class="article-card p-4 h-100">
-    <div class="text-center mb-4 overflow-hidden rounded-4">
+    <div class="article-card-media text-center mb-4 overflow-hidden rounded-4">
+        @if ($article->is_highlighted)
+            <span class="featured-card-badge">
+                <i class="fas fa-bolt"></i>
+                In evidenza
+            </span>
+        @endif
         <img src="{{ $article->images->isNotEmpty() ? $article->images->first()->getUrl(300, 300) : 'https://picsum.photos/500' }}"
             class="img-fluid article-image" alt="{{ $article->title }}">
     </div>
@@ -60,11 +66,11 @@
         <div class="d-flex justify-content-center gap-3 flex-wrap">
             <a href="{{ route('article.show', compact('article')) }}" class="btn custom-btn-card">
 
-                Dettaglio
+                {{ __('ui.detail') }}
             </a>
             @if ($article->category)
                 <a href="{{ route('byCategory', ['category' => $article->category]) }}" class="btn custom-btn-outline">
-                    Categoria
+                    {{ __('ui.category') }}
                 </a>
             @endif
         </div>

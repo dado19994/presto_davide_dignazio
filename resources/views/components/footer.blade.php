@@ -1,131 +1,71 @@
-<footer class="footer">
-    <div class="footer-container py-5">
-        <div class="container">
-            <div class="row gy-5 align-items-center">
-
-                <!-- Brand -->
-                <div class="col-12 col-md-4 text-center text-md-start">
-                    {{-- <h5 class="text-white fw-bold mb-3">
-                        VendoHub AI
-                    </h5> --}}
-
+<footer class="site-footer">
+    <div class="container">
+        <div class="footer-main">
+            <div class="footer-brand">
+                <a href="{{ route('homepage') }}" class="footer-logo-link" aria-label="Vai alla homepage">
                     <img src="{{ asset('media/logo1.png') }}" alt="VendoHub AI" class="footer-logo">
+                </a>
 
-                    <p class="footer-copy mb-0 px-3 px-md-0">
-                        Una community semplice per pubblicare, scoprire e raccontare articoli.
+                <p>
+                    Il marketplace intelligente per vendere, comprare e trattare con più sicurezza.
+                </p>
+
+                <div class="footer-trust-list" aria-label="Funzioni di fiducia">
+                    <span><i class="fas fa-shield-halved"></i> AI Guard</span>
+                    <span><i class="fas fa-star"></i> Recensioni</span>
+                    <span><i class="fas fa-bolt"></i> Prezzi smart</span>
+                </div>
+            </div>
+
+            <nav class="footer-links" aria-label="Navigazione marketplace">
+                <h2>Marketplace</h2>
+                <a href="{{ route('article.index') }}">Esplora articoli</a>
+                <a href="{{ route('create.article') }}">Pubblica articolo</a>
+                <a href="{{ route('cart.index') }}">Carrello</a>
+                <a href="{{ route('favorites.index') }}">Preferiti</a>
+            </nav>
+
+            <nav class="footer-links" aria-label="Area venditore">
+                <h2>Venditori</h2>
+                <a href="{{ route('user.dashboard') }}">Dashboard</a>
+                <a href="{{ route('ai.coach') }}">AI Listing Coach</a>
+                <a href="{{ route('become.revisor') }}">Diventa revisore</a>
+                <a href="{{ route('article.featured') }}">Annunci in evidenza</a>
+            </nav>
+
+            <div class="footer-ai-card">
+                <div class="footer-ai-icon">
+                    <i class="fas fa-microchip"></i>
+                </div>
+                <div>
+                    <span class="footer-ai-kicker">VendoHub AI</span>
+                    <h2>Consigli concreti per vendere meglio</h2>
+                    <p>
+                        Analisi annunci, suggerimenti prezzo, alert sui rischi e risposte rapide in chat.
                     </p>
-                </div>
-
-                <!-- Social -->
-                <div class="col-12 col-md-4">
-                    <section class="social-section d-flex flex-wrap justify-content-center gap-3">
-
-                        <a href="#" class="social-btn facebook" aria-label="Facebook">
-                            <i class="fab fa-facebook-f"></i>
-                        </a>
-
-                        <a href="#" class="social-btn twitter" aria-label="Twitter">
-                            <i class="fab fa-twitter"></i>
-                        </a>
-
-                        <a href="#" class="social-btn instagram" aria-label="Instagram">
-                            <i class="fab fa-instagram"></i>
-                        </a>
-
-                        <a href="#" class="social-btn linkedin" aria-label="LinkedIn">
-                            <i class="fab fa-linkedin-in"></i>
-                        </a>
-
-                        <a href="#" class="social-btn github" aria-label="GitHub">
-                            <i class="fab fa-github"></i>
-                        </a>
-
-                    </section>
-                </div>
-
-                <!-- Revisor CTA -->
-                <div class="col-12 col-md-4 text-center text-md-end">
-                    <h6 class="text-white fw-bold mb-3">
-                        Vuoi diventare revisore?
-                    </h6>
-
-                    <a href="{{ route('become.revisor') }}" class="btn btn-outline-light px-4 py-2 rounded-pill">
-                        Candidati ora
+                    <a href="{{ route('ai.coach') }}" class="footer-ai-link">
+                        Apri la console AI
+                        <i class="fas fa-arrow-right"></i>
                     </a>
                 </div>
+            </div>
+        </div>
 
+        <div class="footer-bottom">
+            <p>© {{ date('Y') }} VendoHub AI. Tutti i diritti riservati.</p>
+
+            <div class="footer-legal-links">
+                <a href="{{ route('privacy') }}">Privacy</a>
+                <a href="{{ route('terms') }}">Termini</a>
+                <a href="{{ route('security') }}">Sicurezza</a>
+            </div>
+
+            <div class="footer-socials" aria-label="Social">
+                <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                <a href="#" aria-label="GitHub"><i class="fab fa-github"></i></a>
             </div>
         </div>
     </div>
-
-    <!-- Bottom Bar -->
-    <div class="bottom-bar py-3">
-        <div class="container text-center">
-            <p class="mb-0 text-white small">
-                © {{ date('Y') }} VendoHub AI - Tutti i diritti riservati
-            </p>
-        </div>
-    </div>
 </footer>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-{{-- OPZIONE 2 --}}
-
-{{-- <footer class="footer">
-  <div class="footer-container">
-    <div class="container">
-      <h5 class="text-white fw-bold mb-3">
-        Story1
-      </h5>
-
-      <section class="social-section">
-        <a href="#" class="social-btn facebook" aria-label="Facebook">
-          <i class="fab fa-facebook-f"></i>
-        </a>
-
-        <a href="#" class="social-btn twitter" aria-label="Twitter">
-          <i class="fab fa-twitter"></i>
-        </a>
-
-        <a href="#" class="social-btn instagram" aria-label="Instagram">
-          <i class="fab fa-instagram"></i>
-        </a>
-
-        <a href="#" class="social-btn linkedin" aria-label="LinkedIn">
-          <i class="fab fa-linkedin-in"></i>
-        </a>
-
-        <a href="#" class="social-btn github" aria-label="GitHub">
-          <i class="fab fa-github"></i>
-        </a>
-      </section>
-
-      <p class="footer-copy mb-0">
-        Una community semplice per pubblicare, scoprire e raccontare articoli.
-      </p>
-    </div>
-  </div>
-  <div class="col-md-5 offset-md-1 mb-3 text-center text-white">
-    <h5>Vuoi diventare revisore?</h5>
-    <a href="{{ route('become.revisor') }}" class="btn btn-outline-light mt-2">Clicca qui</a>
-  </div>
-
-  <div class="bottom-bar">
-    <p class="mb-0">
-      © {{ date('Y') }} Story1
-    </p>
-  </div>
-</footer> --}}

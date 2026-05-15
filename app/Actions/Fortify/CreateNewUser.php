@@ -28,6 +28,7 @@ class CreateNewUser implements CreatesNewUsers
             // REGOLE
             [
                 'name' => ['required', 'string', 'min:3', 'max:255'],
+                'surname' => ['required', 'string', 'min:2', 'max:255'],
 
                 'email' => [
                     'required',
@@ -44,6 +45,8 @@ class CreateNewUser implements CreatesNewUsers
             [
                 'name.required' => 'Il nome è obbligatorio.',
                 'name.min' => 'Il nome deve contenere almeno 3 caratteri.',
+                'surname.required' => 'Il cognome è obbligatorio.',
+                'surname.min' => 'Il cognome deve contenere almeno 2 caratteri.',
 
                 'email.required' => 'L\'email è obbligatoria.',
                 'email.email' => 'Inserisci un indirizzo email valido.',
@@ -57,6 +60,7 @@ class CreateNewUser implements CreatesNewUsers
             // NOMI LEGGIBILI CAMPI
             [
                 'name' => 'nome',
+                'surname' => 'cognome',
                 'email' => 'email',
                 'password' => 'password',
             ]
@@ -65,6 +69,7 @@ class CreateNewUser implements CreatesNewUsers
 
         return User::create([
         'name' => $input['name'],
+        'surname' => $input['surname'],
         'email' => $input['email'],
         'password' => Hash::make($input['password']),
     ]);

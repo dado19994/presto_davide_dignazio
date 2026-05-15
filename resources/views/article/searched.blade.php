@@ -1,29 +1,45 @@
 <x-layout>
-    <div class="container-fluid ">
-        <div class="row py-5 justify-content-center align-items-center text-center">
-            <div class="col-12">
-                <h1 class="display-1">Risultati per la ricerca <span class="fst-italic">{{ $query }}</span></h1>
+    <x-page-header
+        eyebrow="Ricerca"
+        title="Risultati per “{{ $query }}”"
+        subtitle="Abbiamo cercato titolo e descrizione per aiutarti a trovare più velocemente l'articolo giusto."
+    />
+
+    <section class="container section-shell catalog-page">
+        <div class="catalog-toolbar glass-panel">
+            <div>
+                <p class="page-eyebrow mb-2">Risultati trovati</p>
+                <h2>{{ $articles->total() }} articoli corrispondono alla tua ricerca.</h2>
+            </div>
+            <div class="catalog-toolbar-actions">
+                <a href="{{ route('article.index') }}" class="btn custom-btn-outline">
+                    Torna al catalogo
+                </a>
+                <a href="{{ route('article.featured') }}" class="btn custom-btn-card">
+                    <i class="fas fa-bolt me-2"></i>Vedi evidenza
+                </a>
             </div>
         </div>
 
-        <div class="row height-custom justify-content-center align-items-center py-5">
+        <div class="row g-4 justify-content-center">
             @forelse ($articles as $article)
-                <div class="col-12 col-md-3">
+                <div class="col-12 col-md-6 col-lg-4 col-xl-3 d-flex justify-content-center">
                     <x-card :article="$article" />
                 </div>
             @empty
                 <div class="col-12">
-                    <h3 class="text-center">
-                        Nessun articolo corrisponde alla tua ricerca
-                    </h3>
+                    <x-empty-state
+                        title="Nessun articolo trovato"
+                        message="Prova con parole più semplici o sfoglia il catalogo completo."
+                        :action-route="route('article.index')"
+                        action-label="Sfoglia articoli"
+                    />
                 </div>
             @endforelse
         </div>
-    </div>
 
-    <div class="d-flex justify-content-center">
-        <div>
+        <div class="d-flex justify-content-center mt-5 pagination-custom">
             {{ $articles->links() }}
         </div>
-    </div>
+    </section>
 </x-layout>
